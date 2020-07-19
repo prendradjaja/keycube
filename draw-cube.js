@@ -31,7 +31,7 @@ function draw() {
 
 function getTempColor(faceName, r, c) {
   const i = c * 3 + r;
-  const alpha = i / 15 + 0.4;
+  const alpha = 1;
   if (faceName === 'f-face') {
     return `rgba(0, 200, 0, ${alpha}`;
   } else if (faceName === 'r-face') {
