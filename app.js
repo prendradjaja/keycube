@@ -1,4 +1,4 @@
-const globalState = {
+const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
   alreadySolved: true,
