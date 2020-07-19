@@ -1,3 +1,8 @@
 body {
   background: #2f3338;
 }
+
+button#scramble {
+  display: block;
+  margin-top: 50px;
+}

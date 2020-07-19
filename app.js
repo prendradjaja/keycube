@@ -1,12 +1,10 @@
 const globalState = {
-  angle: 'right'
+  angle: 'right',
+  startTime: undefined,
+  alreadySolved: true,
 };
 const cube = new Cube(); // TODO move to globalState
-cube.randomize();
 draw(cube);
-
-const startTime = new Date().valueOf();
-let alreadySolved = false;
 
 document.addEventListener('keydown', event => {
   const move = getMove(event);
@@ -22,9 +20,18 @@ document.addEventListener('keydown', event => {
 
   cube.move(move);
   draw(cube);
-  if (cube.isSolved() && !alreadySolved) {
-    const solveTime = (new Date().valueOf() - startTime) / 1000;
+  if (cube.isSolved() && !globalState.alreadySolved) {
+    const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
     window.alert('Solved in: ' + solveTime);
-    alreadySolved = true;
+    document.querySelector('button#scramble').disabled = false;
+    globalState.alreadySolved = true;
   }
 });
+
+function scramble() {
+  cube.randomize();
+  draw(cube);
+  document.querySelector('button#scramble').disabled = true;
+  globalState.startTime = new Date().valueOf();
+  globalState.alreadySolved = false;
+}
