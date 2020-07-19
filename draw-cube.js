@@ -17,6 +17,8 @@ function draw() {
                   height="100"
                   width="100"
                   fill="${getTempColor(faceId, r, c)}"
+                  stroke="black"
+                  stroke-width="1"
                 />
               `;
             }
