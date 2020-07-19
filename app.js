@@ -1,3 +1,4 @@
+let angle = 'right';
 const cube = new Cube();
 cube.randomize();
 draw(cube);
@@ -7,7 +8,13 @@ let alreadySolved = false;
 
 document.addEventListener('keydown', event => {
   const move = getMove(event);
-  if (!move) {
+  if (event.code === 'Tab') {
+    event.preventDefault();
+    console.log('hi');
+    angle = otherAngle(angle);
+    draw(cube);
+    return;
+  } else if (!move) {
     return;
   }
 
