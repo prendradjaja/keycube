@@ -1,5 +1,7 @@
 ## Rubik's cube simulator
 
-To run: Open index.html
+Try me at: https://prendradjaja.github.io/keycube/
 
-To control: Same controls as speedcube.site (see key-bindings.js)
+Same controls as speedcube.site (see key-bindings.js)
+
+To run locally: Open index.html
