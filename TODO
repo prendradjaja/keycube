@@ -1,0 +1,13 @@
+Basic features
+. Timer
+. Scramble button
+
+Release
+. Randomize orientation
+. Tab to change angle
+
+Experimental features
+. Cross-solved scrambles
+
+Tech debt
+. Move off unpkg
