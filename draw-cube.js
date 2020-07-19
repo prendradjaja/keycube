@@ -1,9 +1,5 @@
 const stickerSize = 100;
 
-const cube = new Cube();
-cube.move('U');
-draw(cube);
-
 function draw(cube) {
   document.querySelectorAll('.cube')
     .forEach(cubeEl => {
