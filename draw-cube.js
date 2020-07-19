@@ -1,24 +1,31 @@
 const stickerSize = 100;
 
-['f-face', 'r-face', 'u-face'].forEach(faceId =>
-  document.getElementsByClassName(faceId)[0].innerHTML = (() => {
-    let result = '';
-    for (let r = 0; r < 3; r++) {
-      for (let c = 0; c < 3; c++) {
-        result += `
-          <rect
-            x="${r * stickerSize}"
-            y="${c * stickerSize}"
-            height="100"
-            width="100"
-            fill="${getTempColor(faceId, r, c)}"
-          />
-        `;
-      }
-    }
-    return result;
-  })()
-);
+draw();
+
+function draw() {
+  document.querySelectorAll('.cube')
+    .forEach(cube => {
+      ['f-face', 'r-face', 'u-face'].forEach(faceId =>
+        cube.querySelector('.' + faceId).innerHTML = (() => {
+          let result = '';
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              result += `
+                <rect
+                  x="${r * stickerSize}"
+                  y="${c * stickerSize}"
+                  height="100"
+                  width="100"
+                  fill="${getTempColor(faceId, r, c)}"
+                />
+              `;
+            }
+          }
+          return result;
+        })()
+      );
+    });
+}
 
 function getTempColor(faceName, r, c) {
   const i = c * 3 + r;
