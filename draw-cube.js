@@ -4,9 +4,9 @@ draw();
 
 function draw() {
   document.querySelectorAll('.cube')
-    .forEach(cube => {
+    .forEach(cubeEl => {
       ['f-face', 'r-face', 'u-face'].forEach(faceId =>
-        cube.querySelector('.' + faceId).innerHTML = (() => {
+        cubeEl.querySelector('.' + faceId).innerHTML = (() => {
           let result = '';
           for (let r = 0; r < 3; r++) {
             for (let c = 0; c < 3; c++) {
