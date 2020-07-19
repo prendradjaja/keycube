@@ -1,5 +1,7 @@
-let angle = 'right';
-const cube = new Cube();
+const globalState = {
+  angle: 'right'
+};
+const cube = new Cube(); // TODO move to globalState
 cube.randomize();
 draw(cube);
 
@@ -11,7 +13,7 @@ document.addEventListener('keydown', event => {
   if (event.code === 'Tab') {
     event.preventDefault();
     console.log('hi');
-    angle = otherAngle(angle);
+    globalState.angle = otherAngle(globalState.angle);
     draw(cube);
     return;
   } else if (!move) {
