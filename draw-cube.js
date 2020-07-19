@@ -1,24 +1,26 @@
 const stickerSize = 100;
 
-draw();
+const cube = new Cube();
+cube.move('U');
+draw(cube);
 
-function draw() {
+function draw(cube) {
   document.querySelectorAll('.cube')
     .forEach(cubeEl => {
-      ['f-face', 'r-face', 'u-face'].forEach(faceId =>
-        cubeEl.querySelector('.' + faceId).innerHTML = (() => {
+      ['f', 'r', 'u'].forEach(face =>
+        cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
           let result = '';
           for (let r = 0; r < 3; r++) {
             for (let c = 0; c < 3; c++) {
               result += `
                 <rect
-                  x="${r * stickerSize}"
-                  y="${c * stickerSize}"
+                  x="${c * stickerSize}"
+                  y="${r * stickerSize}"
                   height="100"
                   width="100"
-                  fill="${getTempColor(faceId, r, c)}"
+                  fill="${getColor(cube, face, r, c)}"
                   stroke="black"
-                  stroke-width="1"
+                  stroke-width="2"
                 />
               `;
             }
@@ -29,16 +31,18 @@ function draw() {
     });
 }
 
-function getTempColor(faceName, r, c) {
-  const i = c * 3 + r;
-  const alpha = 1;
-  if (faceName === 'f-face') {
-    return `rgba(0, 200, 0, ${alpha}`;
-  } else if (faceName === 'r-face') {
-    return `rgba(220, 0, 0, ${alpha}`;
-  } else if (faceName === 'u-face') {
-    return `rgba(180, 180, 180, ${alpha}`;
-  } else {
-    return 'black';
-  }
+function getColor(cube, faceName, r, c) {
+  const sticker = getSticker(cube, faceName, r, c);
+  return stickerToColor(sticker);
+}
+
+function stickerToColor(sticker) {
+  return {
+    U: 'white',
+    F: 'rgb(0, 200, 0)',
+    R: 'rgb(200, 0, 0)',
+    B: 'rgb(0, 0, 200)',
+    L: 'rgb(200, 100, 0)',
+    D: 'rgb(200, 200, 0)',
+  }[sticker];
 }
