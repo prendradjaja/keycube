@@ -10,6 +10,7 @@ x Tab to change angle
 Experimental features
 . Cross-solved scrambles
 . Undo
+. Slice moves
 
 Tech debt
 . Move off unpkg
