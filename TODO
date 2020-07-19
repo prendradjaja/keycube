@@ -5,9 +5,11 @@ x Timer
 Release
 . Randomize orientation
 x Tab to change angle
+. Anything else? cf. qcube & speedcube.site
 
 Experimental features
 . Cross-solved scrambles
+. Undo
 
 Tech debt
 . Move off unpkg
