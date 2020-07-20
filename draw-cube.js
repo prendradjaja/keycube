@@ -20,6 +20,8 @@ function draw(cube) {
                   stroke-width="2"
                 />
               `;
+              // TODO Bigger stroke width (requires some more
+              // math bc this is not "box-sizing: border-box")
             }
           }
           return result;
