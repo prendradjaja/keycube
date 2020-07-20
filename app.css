@@ -4,6 +4,6 @@ body {
 }
 
 button#scramble {
-  display: block;
+  display: none;
   margin-top: 50px;
 }
