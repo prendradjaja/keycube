@@ -10,9 +10,11 @@ document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Tab') {
     event.preventDefault();
-    console.log('hi');
     globalState.angle = otherAngle(globalState.angle);
     draw(cube);
+    return;
+  } else if (event.code === 'Space' && globalState.alreadySolved) {
+    scramble();
     return;
   } else if (!move) {
     return;
@@ -22,7 +24,7 @@ document.addEventListener('keydown', event => {
   draw(cube);
   if (cube.isSolved() && !globalState.alreadySolved) {
     const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
-    window.alert('Solved in: ' + solveTime);
+    console.log('Solved in: ' + solveTime);
     document.querySelector('button#scramble').disabled = false;
     globalState.alreadySolved = true;
   }

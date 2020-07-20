@@ -12,5 +12,8 @@ Experimental features
 . Undo
 . Slice moves
 
+Bugs
+. Unsolvable cubes -- maybe this comes from scrambling from a rotated state?
+
 Tech debt
 . Move off unpkg
