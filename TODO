@@ -20,6 +20,7 @@ x Unsolvable cubes -- maybe this comes from scrambling from a rotated state?
 Tech debt
 . Move off unpkg / add local fallback for cubejs
 . Add local fallback for lodash
+. Modules? But would be nice to still be able to reference everything from the console
 
 Other
 . Build system: Experimental branches on other pages
