@@ -1,18 +1,24 @@
 const NUM_EDGES = 12;
 const NUM_CORNERS = 8;
 
+const scrambles = [];
+
 function getCrossSolvedScramble() {
-  for (let i = 0; i < 50; i++) {
-    console.log(i);
+  return scrambles.shift() || 'U2 D2';
+}
+
+setInterval(() => {
+  if (globalState.alreadySolved && scrambles.length < 10) {
+    console.log("Trying");
     const c = randomCube();
     const solve = getSolve(c);
 
     if (solve) {
-      return Cube.inverse(solve);
+      scrambles.push(Cube.inverse(solve));
+      console.log("** Success! # of scrambles:", scrambles.length);
     }
   }
-  return 'M2 E2 S2';
-}
+}, 0);
 
 /**
  * Not necessarily solvable
