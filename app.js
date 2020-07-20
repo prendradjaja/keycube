@@ -1,13 +1,16 @@
-Cube.initSolver();
-console.log("Solver initialized");
-
 const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
-  alreadySolved: true,
+  alreadySolved: true, // TODO rename
+  solverInitialized: false,
 };
 let cube = new Cube(); // TODO move to globalState
 draw(cube);
+
+setTimeout(() => {
+  Cube.initSolver();
+  globalState.solverInitialized = true;
+}, 10);
 
 document.addEventListener('keydown', event => {
   const move = getMove(event);

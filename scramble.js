@@ -8,14 +8,20 @@ function getCrossSolvedScramble() {
 }
 
 setInterval(() => {
-  if (globalState.alreadySolved && scrambles.length < 10) {
-    const c = randomCube();
-    const solve = getSolve(c);
+  if (
+    !globalState.solverInitialized ||
+    !globalState.alreadySolved ||
+    scrambles.length >= 10
+  ) {
+    return;
+  }
+  const c = randomCube();
+  const solve = getSolve(c);
 
-    if (solve) {
-      document.querySelector('button#scramble').disabled = false;
-      scrambles.push(Cube.inverse(solve));
-    }
+  if (solve) {
+    document.querySelector('button#scramble').disabled = false;
+    document.querySelector('.cube').classList.remove('initializing');
+    scrambles.push(Cube.inverse(solve));
   }
 }, 0);
 
