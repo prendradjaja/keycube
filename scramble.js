@@ -14,6 +14,7 @@ setInterval(() => {
     const solve = getSolve(c);
 
     if (solve) {
+      document.querySelector('button#scramble').disabled = false;
       scrambles.push(Cube.inverse(solve));
       console.log("** Success! # of scrambles:", scrambles.length);
     }
