@@ -9,14 +9,12 @@ function getCrossSolvedScramble() {
 
 setInterval(() => {
   if (globalState.alreadySolved && scrambles.length < 10) {
-    console.log("Trying");
     const c = randomCube();
     const solve = getSolve(c);
 
     if (solve) {
       document.querySelector('button#scramble').disabled = false;
       scrambles.push(Cube.inverse(solve));
-      console.log("** Success! # of scrambles:", scrambles.length);
     }
   }
 }, 0);
