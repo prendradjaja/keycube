@@ -14,14 +14,16 @@ setTimeout(() => {
 
 document.addEventListener('keydown', event => {
   const move = getMove(event);
-  if (event.code === 'Tab') {
-    event.preventDefault();
-    globalState.angle = otherAngle(globalState.angle);
-    draw(cube);
-    return;
-  } else if (event.code === 'Space' && globalState.alreadySolved) {
-    scramble();
-    return;
+  if (event.code === 'Space') {
+    if (!globalState.alreadySolved) {
+      event.preventDefault();
+      globalState.angle = otherAngle(globalState.angle);
+      draw(cube);
+      return;
+    } else {
+      scramble();
+      return;
+    }
   } else if (!move) {
     return;
   }
