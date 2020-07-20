@@ -1,20 +1,18 @@
+Next
+. Settings UI for cross-solved
+. Merge cross-solved
+. Basic features: Inspection time
+. Other: Randomize orientation (Many options here for interaction with cross-solved -- color-neutral? pick a cross color?)
+
 Basic features
 x Timer
 x Scramble button
-. Inspection time
-
-Release
-. Randomize orientation
-x Tab to change angle
-. Anything else? cf. qcube & speedcube.site
-x Space to change angle
-. UI for settings (double-vision, eventually keybindings, ...)
 
 Experimental features
 / Cross-solved scrambles
-. Undo
 . Slice moves
 . Trainer mode? (e.g. drill some F2L case(s) or PLL(s))
+. Record and play back solves
 
 Bugs
 x Unsolvable cubes -- maybe this comes from scrambling from a rotated state?
@@ -26,3 +24,5 @@ Tech debt
 
 Other
 . Build system: Experimental branches on other pages
+. UI for settings (double-vision, eventually keybindings, ...)
+. Keybindings vis

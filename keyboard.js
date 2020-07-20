@@ -46,6 +46,16 @@ function parseOneKeyBinding(key) {
       code: 'Semicolon',
       shiftKey: false
     };
+  } else if (key === '.') {
+    return {
+      code: 'Period',
+      shiftKey: false
+    };
+  } else if (key === ',') {
+    return {
+      code: 'Comma',
+      shiftKey: false
+    };
   } else {
     const errorMessage = 'Unparseable key: ' + key;
     window.alert(errorMessage);
