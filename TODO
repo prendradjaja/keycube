@@ -7,14 +7,22 @@ Release
 . Randomize orientation
 x Tab to change angle
 . Anything else? cf. qcube & speedcube.site
+x Space to change angle
+. UI for settings (double-vision, eventually keybindings, ...)
 
 Experimental features
-. Cross-solved scrambles
+/ Cross-solved scrambles
 . Undo
 . Slice moves
+. Trainer mode? (e.g. drill some F2L case(s) or PLL(s))
 
 Bugs
 x Unsolvable cubes -- maybe this comes from scrambling from a rotated state?
 
 Tech debt
-. Move off unpkg
+. Move off unpkg / add local fallback for cubejs
+. Add local fallback for lodash
+. Modules? But would be nice to still be able to reference everything from the console
+
+Other
+. Build system: Experimental branches on other pages
