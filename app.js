@@ -47,14 +47,14 @@ function scramble() {
 
 async function congrats() {
   for (let i = 0; i < 4; i++) {
-    await wait(150);
     cube.move('y');
     draw(cube);
+    await wait(150);
   }
   for (let i = 0; i < 4; i++) {
-    await wait(150);
     cube.move('x');
     draw(cube);
+    await wait(150);
   }
 }
 
