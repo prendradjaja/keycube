@@ -33,6 +33,7 @@ document.addEventListener('keydown', event => {
     console.log('Solved in: ' + solveTime);
     document.querySelector('button#scramble').disabled = false;
     globalState.alreadySolved = true;
+    congrats();
   }
 });
 
@@ -42,4 +43,21 @@ function scramble() {
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();
   globalState.alreadySolved = false;
+}
+
+async function congrats() {
+  for (let i = 0; i < 4; i++) {
+    await wait(150);
+    cube.move('y');
+    draw(cube);
+  }
+  for (let i = 0; i < 4; i++) {
+    await wait(150);
+    cube.move('x');
+    draw(cube);
+  }
+}
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
