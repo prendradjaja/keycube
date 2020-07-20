@@ -1,9 +1,12 @@
+Cube.initSolver();
+console.log("Solver initialized");
+
 const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
   alreadySolved: true,
 };
-const cube = new Cube(); // TODO move to globalState
+let cube = new Cube(); // TODO move to globalState
 draw(cube);
 
 document.addEventListener('keydown', event => {
@@ -31,7 +34,7 @@ document.addEventListener('keydown', event => {
 });
 
 function scramble() {
-  cube.init(Cube.random());
+  cube = new Cube().move(getCrossSolvedScramble());
   draw(cube);
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();
