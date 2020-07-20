@@ -31,7 +31,7 @@ document.addEventListener('keydown', event => {
 });
 
 function scramble() {
-  cube.randomize();
+  cube.init(Cube.random());
   draw(cube);
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();
