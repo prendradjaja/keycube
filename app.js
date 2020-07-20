@@ -29,6 +29,11 @@ document.addEventListener('keydown', event => {
   }
 
   cube.move(move);
+  if (move === 'y') {
+    globalState.angle = 'right';
+  } else if (move === "y'") {
+    globalState.angle = 'left';
+  }
   draw(cube);
   if (cube.isSolved() && !globalState.alreadySolved) {
     const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
