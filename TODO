@@ -15,6 +15,7 @@ Experimental features
 . Undo
 . Slice moves
 . Trainer mode? (e.g. drill some F2L case(s) or PLL(s))
+. Auto-angle? (e.g. rotate left = show left side)
 
 Bugs
 x Unsolvable cubes -- maybe this comes from scrambling from a rotated state?
