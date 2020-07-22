@@ -1,3 +1,8 @@
+#ascii-cube {
+  color: white;
+  font-family: "Andale Mono";
+}
+
 .cube-wrapper {
   transform: translate(100px, 200px);
 }
