@@ -73,10 +73,10 @@ function stickerToColor(sticker) {
   return {
     U: ' ',
     D: '@',
-    F: '.',
+    F: 'x',
     B: '*',
-    L: '{',
-    R: '&',
+    L: '.',
+    R: 'o',
   }[sticker];
 }
 
