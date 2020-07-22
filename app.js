@@ -10,6 +10,8 @@ document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Space') {
     if (!globalState.alreadySolved) {
+      globalState.angle = otherAngle(globalState.angle);
+      draw(cube);
       return;
     } else {
       scramble();
