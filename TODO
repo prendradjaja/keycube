@@ -24,6 +24,6 @@ Tech debt
 . Modules? But would be nice to still be able to reference everything from the console
 
 Other
-. Build system: Experimental branches on other pages
+x Build system: Experimental branches on other pages
 . UI for settings (double-vision, eventually keybindings, ...)
 . Keybindings vis
