@@ -2,7 +2,14 @@ const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
   alreadySolved: true,
+  trainingAlg: undefined,
 };
+
+globalState.trainingAlg = window.prompt();
+if (!globalState.trainingAlg) {
+  document.body.style.display = 'none';
+}
+
 const cube = new Cube(); // TODO move to globalState
 draw(cube);
 
@@ -10,9 +17,8 @@ document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Space') {
     if (!globalState.alreadySolved) {
-      event.preventDefault();
-      globalState.angle = otherAngle(globalState.angle);
-      draw(cube);
+      const yes = window.confirm('Reset?');
+      if (yes) { scramble(); }
       return;
     } else {
       scramble();
@@ -33,7 +39,8 @@ document.addEventListener('keydown', event => {
 });
 
 function scramble() {
-  cube.init(Cube.random());
+  cube.init(new Cube());
+  cube.move(Cube.inverse(globalState.trainingAlg));
   draw(cube);
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();
