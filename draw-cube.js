@@ -4,30 +4,36 @@ function draw(cube) {
   document.querySelectorAll('.cube')
     .forEach(cubeEl => {
       setAngleClass(cubeEl);
-      ['f', 'r', 'u', 'l'].forEach(face =>
-        cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
-          let result = '';
-          for (let r = 0; r < 3; r++) {
-            for (let c = 0; c < 3; c++) {
-              result += `
-                <rect
-                  x="${c * stickerSize}"
-                  y="${r * stickerSize}"
-                  height="100"
-                  width="100"
-                  fill="${getColor(cube, face, r, c)}"
-                  stroke="black"
-                  stroke-width="2"
-                />
-              `;
-              // TODO Bigger stroke width (requires some more
-              // math bc this is not "box-sizing: border-box")
-            }
-          }
-          return result;
-        })()
-      );
+
+      drawFace('f', cubeEl)
+      drawFace('r', cubeEl)
+      drawFace('u', cubeEl)
     });
+}
+
+function drawFace(face, cubeEl) {
+  const { r: rows, c: cols } = faceDimensions[face];
+  cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
+    let result = '';
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        result += `
+          <rect
+            x="${c * stickerSize}"
+            y="${r * stickerSize}"
+            height="100"
+            width="100"
+            fill="${getColor(cube, face, r, c)}"
+            stroke="black"
+            stroke-width="2"
+          />
+        `;
+        // TODO Bigger stroke width (requires some more
+        // math bc this is not "box-sizing: border-box")
+      }
+    }
+    return result;
+  })()
 }
 
 function getColor(cube, faceName, r, c) {
