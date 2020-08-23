@@ -6,7 +6,7 @@
   /* No transform */
 }
 
-.cube-wrapper.angle-right .r-face {
+.cube-wrapper .r-face {
   transform:
     translate(200px, 0)
     skewY(-45deg)
@@ -14,11 +14,11 @@
   ;
 }
 
-.cube-wrapper.angle-right .l-face {
+.cube-wrapper .l-face {
   display: none;
 }
 
-.cube-wrapper.angle-right .u-face {
+.cube-wrapper .u-face {
   transform:
     skewX(-45deg)
     scaleY(0.3)

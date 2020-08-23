@@ -1,17 +1,12 @@
 const stickerSize = 100;
 
-function draw(cube) {
-  document.querySelectorAll('.cube')
-    .forEach(cubeEl => {
-      setAngleClass(cubeEl);
-
-      drawFace('f', cubeEl)
-      drawFace('r', cubeEl)
-      drawFace('u', cubeEl)
-    });
+function draw(cube, cubeEl) {
+  drawFace('f', cube, cubeEl)
+  drawFace('r', cube, cubeEl)
+  drawFace('u', cube, cubeEl)
 }
 
-function drawFace(face, cubeEl) {
+function drawFace(face, cube, cubeEl) {
   const { r: rows, c: cols } = faceDimensions[face];
   cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
     let result = '';
@@ -50,19 +45,4 @@ function stickerToColor(sticker) {
     L: 'rgb(200, 100, 0)',
     D: 'rgb(200, 200, 0)',
   }[sticker];
-}
-
-function otherAngle(angle) {
-  if (angle === 'right') {
-    return 'left';
-  } else {
-    return 'right';
-  }
-}
-
-function setAngleClass(cubeEl) {
-  const angle = globalState.angle;
-  const wrapperEl = cubeEl.querySelector('.cube-wrapper');
-  wrapperEl.classList.remove('angle-' + otherAngle(angle));
-  wrapperEl.classList.add('angle-' + angle);
 }
