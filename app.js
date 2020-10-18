@@ -23,6 +23,9 @@ Object.values(cases).forEach(alg => {
   document.querySelector('#cubes-container').appendChild(newElement)
   const cubeEl = newElement.querySelector('.cube');
   const cube = new Puzzle();
-  cube.move(alg);
+  cube.move(Puzzle.inverse(alg));
+  const rotate = cube.getStandardRotation_();
+  cube.move(rotate);
   draw(cube, cubeEl);
+  cubeEl.onclick = () => window.alert(Puzzle.inverse(rotate) + ' ' + alg);
 })
