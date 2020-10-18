@@ -12,3 +12,7 @@ button#scramble {
   color: white;
   font-family: sans-serif;
 }
+
+.solution .undone {
+  color: gray;
+}
