@@ -24,7 +24,8 @@ document.addEventListener('keydown', event => {
 
   cube.move(move);
   draw(cube);
-  if (cube.isSolved() && !globalState.alreadySolved) {
+
+  if (cube.eo.filter(x => !!x).length === 0 && !globalState.alreadySolved) {
     const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
     console.log('Solved in: ' + solveTime);
     document.querySelector('button#scramble').disabled = false;
@@ -34,6 +35,8 @@ document.addEventListener('keydown', event => {
 
 function scramble() {
   cube.init(Cube.random());
+  // cube.init(new Cube());
+  // cube.move("F2 L U F U' D L2 B' D R2 U2 R' F2 D2 F2 L U2 L' U2 B2 L2");
   draw(cube);
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();

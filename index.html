@@ -14,23 +14,103 @@
   </head>
   <body>
 
-    <svg
-      class="cube"
-      width="500"
-      height="500"
-      viewBox="0 0 600 500"
-    >
-      <g class="cube-wrapper">
-        <g class="f-face">
-        </g>
-        <g class="r-face">
-        </g>
-        <g class="u-face">
-        </g>
-        <g class="l-face">
-        </g>
-      </g>
-    </svg>
+<!-- Why 120 instead of 110? -->
+<svg class="eocube" height="500" width="500" viewBox="-10 -10 120 120">
+
+  <g>
+    <circle
+      r="5"
+      cx="50"
+      cy="0"
+      id="edge-1"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="0"
+      cy="50"
+      id="edge-9"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="100"
+      cy="50"
+      id="edge-8"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="50"
+      cy="100"
+      id="edge-5"
+    ></circle>
+  </g>
+
+  <g
+    transform="translate(25, 25) scale(0.5)"
+  >
+    <circle
+      r="5"
+      cx="50"
+      cy="0"
+      id="edge-3"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="0"
+      cy="50"
+      id="edge-10"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="100"
+      cy="50"
+      id="edge-11"
+    ></circle>
+
+    <circle
+      r="5"
+      cx="50"
+      cy="100"
+      id="edge-7"
+    ></circle>
+  </g>
+
+  <g>
+    <circle
+      r="3.75"
+      cx="12.5"
+      cy="12.5"
+      id="edge-2"
+    ></circle>
+
+    <circle
+      r="3.75"
+      cx="87.5"
+      cy="12.5"
+      id="edge-0"
+    ></circle>
+
+    <circle
+      r="3.75"
+      cx="12.5"
+      cy="87.5"
+      id="edge-6"
+      class="misoriented"
+    ></circle>
+
+    <circle
+      r="3.75"
+      cx="87.5"
+      cy="87.5"
+      id="edge-4"
+    ></circle>
+  </g>
+</svg>
+
 
     <button
       id="scramble"

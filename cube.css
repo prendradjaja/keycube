@@ -1,47 +1,7 @@
-.cube-wrapper {
-  transform: translate(100px, 200px);
+.eocube circle:not(.misoriented) {
+  fill: white;
 }
 
-.cube-wrapper .f-face {
-  /* No transform */
-}
-
-.cube-wrapper.angle-right .r-face {
-  transform:
-    translate(300px, 0)
-    skewY(-45deg)
-    scaleX(0.3)
-  ;
-}
-
-.cube-wrapper.angle-left .r-face {
-  display: none;
-}
-
-.cube-wrapper.angle-left .l-face {
-  transform:
-    skewY(45deg)
-    scaleX(0.3)
-    translate(-300px, 0)
-  ;
-}
-
-.cube-wrapper.angle-right .l-face {
-  display: none;
-}
-
-.cube-wrapper.angle-right .u-face {
-  transform:
-    skewX(-45deg)
-    scaleY(0.3)
-    translate(0, -300px)
-  ;
-}
-
-.cube-wrapper.angle-left .u-face {
-  transform:
-    skewX(45deg)
-    scaleY(0.3)
-    translate(0, -300px)
-  ;
+.eocube circle.misoriented {
+  fill: #980b0b;
 }

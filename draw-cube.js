@@ -1,33 +1,16 @@
 const stickerSize = 100;
 
 function draw(cube) {
-  document.querySelectorAll('.cube')
-    .forEach(cubeEl => {
-      setAngleClass(cubeEl);
-      ['f', 'r', 'u', 'l'].forEach(face =>
-        cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
-          let result = '';
-          for (let r = 0; r < 3; r++) {
-            for (let c = 0; c < 3; c++) {
-              result += `
-                <rect
-                  x="${c * stickerSize}"
-                  y="${r * stickerSize}"
-                  height="100"
-                  width="100"
-                  fill="${getColor(cube, face, r, c)}"
-                  stroke="black"
-                  stroke-width="2"
-                />
-              `;
-              // TODO Bigger stroke width (requires some more
-              // math bc this is not "box-sizing: border-box")
-            }
-          }
-          return result;
-        })()
-      );
-    });
+  const MISORIENTED_CLASS = 'misoriented';
+  const cubeEl = document.querySelector('.eocube');
+  cube.eo.forEach((misoriented, i) => {
+    const edgeEl = document.getElementById('edge-'+i);
+    if (!misoriented) {
+      edgeEl.classList.remove(MISORIENTED_CLASS);
+    } else {
+      edgeEl.classList.add(MISORIENTED_CLASS);
+    }
+  });
 }
 
 function getColor(cube, faceName, r, c) {
