@@ -7,3 +7,8 @@ button#scramble {
   display: none;
   margin-top: 50px;
 }
+
+.solution {
+  color: white;
+  font-family: sans-serif;
+}
