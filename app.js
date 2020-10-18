@@ -8,7 +8,7 @@ const cube = new Cube(); // TODO move to globalState
 draw(cube);
 
 document.addEventListener('keydown', event => {
-  const move = getMove(event);
+  let move = getMove(event);
   if (event.code === 'Space') {
     if (!globalState.alreadySolved) {
       event.preventDefault();
@@ -19,6 +19,13 @@ document.addEventListener('keydown', event => {
       scramble();
       return;
     }
+  } else if (event.code === 'Backspace') { // TODO These probably should be part of the keyboard code/config
+    const lastMove = globalState.solution.slice(-1)[0];
+    if (!lastMove) {
+      return;
+    }
+
+    move = inverse(lastMove);
   } else if (!move) {
     return;
   }
@@ -45,4 +52,12 @@ function scramble() {
 
   globalState.solution = [];
   drawSolution();
+}
+
+function inverse(move) {
+  if (move[move.length - 1] === "'") {
+    return move.substring(0, move.length - 1);
+  } else {
+    return move + "'";
+  }
 }
