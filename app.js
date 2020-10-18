@@ -20,12 +20,18 @@ document.addEventListener('keydown', event => {
       return;
     }
   } else if (event.code === 'Backspace') { // TODO These probably should be part of the keyboard code/config
-    const lastMove = globalState.solution.slice(-1)[0];
-    if (!lastMove) {
+    const undo = getUndoMove();
+    if (!undo) {
       return;
     }
 
-    move = Cube.inverse(lastMove);
+    const {i, inverse, oldMoveTagged} = undo;
+    cube.move(inverse);
+    draw(cube);
+    globalState.solution[i] = oldMoveTagged;
+    drawSolution();
+    return;
+
   } else if (!move) {
     return;
   }
@@ -54,3 +60,17 @@ function scramble() {
   drawSolution();
 }
 
+function getUndoMove() {
+  for (let i = globalState.solution.length - 1; i >=0; i--) {
+    const move = globalState.solution[i];
+    if (move.startsWith('//')) {
+      continue;
+    }
+
+    return {
+      i,
+      inverse: Cube.inverse(move),
+      oldMoveTagged: '//' + move
+    };
+  }
+}
