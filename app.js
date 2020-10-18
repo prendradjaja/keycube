@@ -25,7 +25,7 @@ document.addEventListener('keydown', event => {
       return;
     }
 
-    move = inverse(lastMove);
+    move = Cube.inverse(lastMove);
   } else if (!move) {
     return;
   }
@@ -54,10 +54,3 @@ function scramble() {
   drawSolution();
 }
 
-function inverse(move) {
-  if (move[move.length - 1] === "'") {
-    return move.substring(0, move.length - 1);
-  } else {
-    return move + "'";
-  }
-}
