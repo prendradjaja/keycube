@@ -3,11 +3,6 @@ body {
   text-align: center;
 }
 
-button#scramble {
-  display: none;
-  margin-top: 50px;
-}
-
 #text-display {
   color: white;
   font-family: sans-serif;
