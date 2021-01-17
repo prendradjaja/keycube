@@ -1,7 +1,10 @@
+const SOLVED = 'solved';
+const SOLVING = 'solving';
+
 const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
-  alreadySolved: true,
+  state: SOLVED,
 };
 const cube = new Cube(); // TODO move to globalState
 draw(cube);
@@ -9,7 +12,7 @@ draw(cube);
 document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Space') {
-    if (!globalState.alreadySolved) {
+    if (globalState.state === SOLVING) {
       event.preventDefault();
       globalState.angle = otherAngle(globalState.angle);
       draw(cube);
@@ -24,22 +27,29 @@ document.addEventListener('keydown', event => {
 
   cube.move(move);
   draw(cube);
-  if (cube.isSolved() && !globalState.alreadySolved) {
+  if (cube.isSolved() && globalState.state === SOLVING) {
     const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
     displayText('Solved in: ' + solveTime);
     document.querySelector('button#scramble').disabled = false;
-    globalState.alreadySolved = true;
+    globalState.state = SOLVED;
   }
 });
 
 function scramble() {
   cube.init(Cube.random());
+  // cube.init(new Cube());
+  // cube.move('R U');
+
   draw(cube);
   document.querySelector('button#scramble').disabled = true;
   globalState.startTime = new Date().valueOf();
-  globalState.alreadySolved = false;
+    globalState.state = SOLVING;
 }
 
 function displayText(text) {
   document.getElementById('text-display').innerText = text;
+}
+
+function clearText() {
+  displayText('');
 }
