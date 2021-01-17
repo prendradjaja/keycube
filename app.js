@@ -38,6 +38,7 @@ document.addEventListener('keydown', event => {
   if (cube.isSolved() && globalState.state === SOLVING) {
     const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
     displayText(''+solveTime);
+    console.log(''+solveTime);
     globalState.state = SOLVED;
   }
   draw(cube);
