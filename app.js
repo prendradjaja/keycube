@@ -1,7 +1,11 @@
+const SOLVED = 'solved';
+const SOLVING = 'solving';
+const INSPECTION = 'inspection';
+
 const globalState = { // TODO rename to globals
   angle: 'right',
   startTime: undefined,
-  alreadySolved: true,
+  state: SOLVED,
 };
 const cube = new Cube(); // TODO move to globalState
 draw(cube);
@@ -9,33 +13,50 @@ draw(cube);
 document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Space') {
-    if (!globalState.alreadySolved) {
+    if (globalState.state === SOLVING || globalState.state === INSPECTION) {
       event.preventDefault();
       globalState.angle = otherAngle(globalState.angle);
       draw(cube);
       return;
-    } else {
+    } else if (globalState.state === SOLVED) {
       scramble();
       return;
+    } else {
+      throw new Error("Unreachable")
     }
   } else if (!move) {
     return;
   }
 
-  cube.move(move);
-  draw(cube);
-  if (cube.isSolved() && !globalState.alreadySolved) {
-    const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
-    console.log('Solved in: ' + solveTime);
-    document.querySelector('button#scramble').disabled = false;
-    globalState.alreadySolved = true;
+  if (globalState.state === INSPECTION && !'xyz'.includes(move[0])) {
+    globalState.startTime = new Date().valueOf();
+    globalState.state = SOLVING;
+    displayText('Solving');
   }
+
+  cube.move(move);
+  if (cube.isSolved() && globalState.state === SOLVING) {
+    const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
+    displayText(''+solveTime);
+    globalState.state = SOLVED;
+  }
+  draw(cube);
 });
 
 function scramble() {
   cube.init(Cube.random());
+  // cube.init(new Cube());
+  // cube.move('R');
+
   draw(cube);
-  document.querySelector('button#scramble').disabled = true;
-  globalState.startTime = new Date().valueOf();
-  globalState.alreadySolved = false;
+  globalState.state = INSPECTION;
+  displayText('Unlimited inspection');
+}
+
+function displayText(text) {
+  document.getElementById('text-display').innerText = text;
+}
+
+function clearText() {
+  displayText('');
 }
