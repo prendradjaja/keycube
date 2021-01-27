@@ -29,6 +29,5 @@ for (let row of layout) {
 touchKeyboardEl.innerHTML = keyboardHtml;
 
 function handleButtonClick(button, move) {
-  cube.move(move);
-  draw(cube);
+  handleMove(move);
 }

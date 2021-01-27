@@ -13,21 +13,29 @@ draw(cube);
 document.addEventListener('keydown', event => {
   const move = getMove(event);
   if (event.code === 'Space') {
-    if (globalState.state === SOLVING || globalState.state === INSPECTION) {
-      event.preventDefault();
-      globalState.angle = otherAngle(globalState.angle);
-      draw(cube);
-      return;
-    } else if (globalState.state === SOLVED) {
-      scramble();
-      return;
-    } else {
-      throw new Error("Unreachable")
-    }
+    handleSpace();
   } else if (!move) {
     return;
   }
 
+  handleMove(move);
+});
+
+function handleSpace() {
+  if (globalState.state === SOLVING || globalState.state === INSPECTION) {
+    event.preventDefault();
+    globalState.angle = otherAngle(globalState.angle);
+    draw(cube);
+    return;
+  } else if (globalState.state === SOLVED) {
+    scramble();
+    return;
+  } else {
+    throw new Error("Unreachable")
+  }
+}
+
+function handleMove(move) {
   if (globalState.state === INSPECTION && !'xyz'.includes(move[0])) {
     globalState.startTime = new Date().valueOf();
     globalState.state = SOLVING;
@@ -42,7 +50,7 @@ document.addEventListener('keydown', event => {
     globalState.state = SOLVED;
   }
   draw(cube);
-});
+}
 
 function scramble() {
   cube.init(Cube.random());

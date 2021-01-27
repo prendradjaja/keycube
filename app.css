@@ -1,6 +1,7 @@
 body {
   background: #2f3338;
   text-align: center;
+  margin-top: 0;
 }
 
 body > * {
@@ -11,7 +12,7 @@ body > * {
 /* https://spin.atomicobject.com/2015/07/14/css-responsive-square/ */
 .square {
   position: relative;
-  width: 80%;
+  width: 75%;
   max-width: 500px;
 }
 
@@ -29,10 +30,10 @@ body > * {
 
 
 #text-display {
-  display: none;
   color: white;
   font-family: sans-serif;
-  font-size: 20px;
+  margin-top: 16px;
+  font-size: 24px;
 }
 
 #touch-keyboard {
