@@ -2,10 +2,10 @@ const touchKeyboardEl = document.getElementById('touch-keyboard');
 
 const layout = `
 
-  x  B' B  y
+  y' B' B  y
   L' U' U  R
   L  F' F  R'
-  y' D  D' x'
+  x' D  D' x
 
 `.trim().split('\n').map(line => line.trim().split(/\s+/))
 console.log(layout)
