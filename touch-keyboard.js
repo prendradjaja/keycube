@@ -2,7 +2,7 @@ const touchKeyboardEl = document.getElementById('touch-keyboard');
 
 const layout = `
 
-  y' B' B  y
+  y' B  B' y
   L' U' U  R
   L  F' F  R'
   x' D  D' x
