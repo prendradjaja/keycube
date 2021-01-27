@@ -54,6 +54,10 @@ body > * {
   width: 100%;
 }
 
+#touch-keyboard button:focus {
+  outline: 0;
+}
+
 #touch-keyboard button.active {
   background: red;
 }
