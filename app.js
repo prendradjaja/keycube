@@ -61,3 +61,9 @@ function displayText(text) {
 function clearText() {
   displayText('');
 }
+
+function changeAngle() {
+  // TODO DRY
+  globalState.angle = otherAngle(globalState.angle);
+  draw(cube);
+}

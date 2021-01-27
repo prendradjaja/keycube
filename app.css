@@ -3,25 +3,50 @@ body {
   text-align: center;
 }
 
+body > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.square {
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.square-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
 #text-display {
+  display: none;
   color: white;
   font-family: sans-serif;
   font-size: 20px;
 }
 
 #touch-keyboard {
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  height: 100%;
+  width: 100%;
 }
 
 #touch-keyboard td {
-  height: 70px;
-  width: 70px;
+  height: 25%;
+  width: 25%;
   text-align: center;
 }
 
 #touch-keyboard button {
+  font-size: 24px;
   border: 0;
   background: #c0c0c0;
   height: 100%;

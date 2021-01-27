@@ -17,30 +17,39 @@
   </head>
   <body>
 
-    <svg
-      class="cube"
-      width="300"
-      height="300"
-      viewBox="0 0 500 400"
-    >
-      <g class="cube-wrapper">
-        <g class="f-face">
-        </g>
-        <g class="r-face">
-        </g>
-        <g class="u-face">
-        </g>
-        <g class="l-face">
-        </g>
-      </g>
-    </svg>
-
-    <div id="text-display">
-      Hello!
+    <div class="square">
+      <div class="square-content">
+        <svg
+          class="cube"
+          width="100%"
+          height="100%"
+          viewBox="0 0 500 400"
+          onclick="changeAngle()"
+        >
+          <g class="cube-wrapper">
+            <g class="f-face">
+            </g>
+            <g class="r-face">
+            </g>
+            <g class="u-face">
+            </g>
+            <g class="l-face">
+            </g>
+          </g>
+        </svg>
+      </div>
     </div>
 
-    <table id="touch-keyboard">
-    </table>
+    <div class="square">
+      <div class="square-content">
+        <div id="text-display">
+          Hello!
+        </div>
+
+        <table id="touch-keyboard">
+        </table>
+      </div>
+    </div>
 
     <script src="./app.js"></script>
     <script src="./touch-keyboard.js"></script>
