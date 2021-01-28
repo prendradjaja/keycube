@@ -1,14 +1,17 @@
 const touchKeyboardEl = document.getElementById('touch-keyboard');
 
-const layout = `
+let layout = `
 
   y' B  B' y
   L' U' U  R
   L  F' F  R'
   x' D  D' x
 
-`.trim().split('\n').map(line => line.trim().split(/\s+/))
-console.log(layout)
+  a b c
+  d e f
+
+`.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
+layout = layout[0];
 
 let keyboardHtml = '';
 for (let row of layout) {
