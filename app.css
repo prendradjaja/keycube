@@ -47,7 +47,8 @@ body > * {
   text-align: center;
 }
 
-#touch-keyboard button {
+#touch-keyboard button,
+#modifiers button {
   font-size: 24px;
   border: 0;
   background: #c0c0c0;
@@ -57,4 +58,16 @@ body > * {
 
 #touch-keyboard button:focus {
   outline: 0;
+}
+
+#modifiers {
+  position: absolute;
+  left: 0;
+}
+
+#modifiers button {
+  display: block;
+  margin-bottom: 4px;
+  width: min(10vw, 65px);
+  height: 100px;
 }
