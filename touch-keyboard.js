@@ -17,7 +17,7 @@ for (let row of layout) {
     keyboardHtml += `
       <td>
         <button
-          onclick="handleButtonClick(this, &quot;${key}&quot;)"
+          ontouchstart="handleButtonClick(this, &quot;${key}&quot;)"
         >
           ${key}
         </button>
@@ -30,4 +30,8 @@ touchKeyboardEl.innerHTML = keyboardHtml;
 
 function handleButtonClick(button, move) {
   handleMove(move);
+  button.classList.add('active');
+  setTimeout(() => {
+    button.classList.remove('active');
+  }, 500);
 }
