@@ -23,8 +23,8 @@ touchKeyboard.layers = `
   x' d  d' x
 
   _  _  _  _
-  M' _  _  M'
   M  _  _  M
+  M' _  _  M'
   z' _  _  z
 
 `.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
