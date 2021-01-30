@@ -33,5 +33,5 @@ function handleButtonClick(button, move) {
   button.classList.add('active');
   setTimeout(() => {
     button.classList.remove('active');
-  }, 500);
+  }, 200);
 }
