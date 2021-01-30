@@ -40,7 +40,7 @@ function createTouchKeyboard() {
         <td>
           <button
             id="touch-keyboard-button-${r}-${c}"
-            onclick="handleButtonClick(this, ${r}, ${c})"
+            ontouchstart="handleButtonClick(this, ${r}, ${c})"
           >
           </button>
         </td>
