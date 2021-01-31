@@ -36,18 +36,18 @@ body > * {
   font-size: 24px;
 }
 
-#touch-keyboard {
+.touch-keyboard {
   height: 100%;
   width: 100%;
 }
 
-#touch-keyboard td {
+.touch-keyboard td {
   height: 25%;
   width: 25%;
   text-align: center;
 }
 
-#touch-keyboard button,
+.touch-keyboard button,
 .modifiers button {
   font-size: 24px;
   border: 0;
@@ -56,11 +56,16 @@ body > * {
   width: 100%;
 }
 
-#touch-keyboard button.active {
-  background: #6da4d5;
+.touch-keyboard td {
+  background: white;
+  padding: 0;
 }
 
-#touch-keyboard button:focus {
+.touch-keyboard button.active {
+  opacity: 0.8;
+}
+
+.touch-keyboard button:focus {
   outline: 0;
 }
 
@@ -94,4 +99,12 @@ button {
       -ms-user-select: none; /* Internet Explorer/Edge */
           user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
+}
+
+body.layer-1-active button.layer-1 {
+  background: #8babc7;
+}
+
+body.layer-2-active button.layer-2 {
+  background: #d8d27d;
 }

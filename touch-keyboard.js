@@ -1,4 +1,4 @@
-const touchKeyboardEl = document.getElementById('touch-keyboard');
+const touchKeyboardEl = document.getElementsByClassName('touch-keyboard')[0];
 
 class touchKeyboard {
   layers = undefined; // will be initialized below
@@ -17,10 +17,10 @@ touchKeyboard.layers = `
   L  F' F  R'
   x' D  D' x
 
-  y' b  b' y
+  _  b  b' _
   l' u' u  r
   l  f' f  r'
-  x' d  d' x
+  _  d  d' _
 
   _  _  _  _
   M  _  _  M
@@ -69,7 +69,18 @@ function activateLayer(i) {
       const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
       const { move, fallThrough } = getBinding(r, c);
       buttonEl.textContent = move;
+      if (!fallThrough && i !== 0) {
+        buttonEl.classList.add(`layer-${i}`);
+      } else {
+        [1, 2].forEach(j => buttonEl.classList.remove(`layer-${j}`));
+      }
     }
+  }
+
+  if (i === 0) {
+    [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
+  } else {
+    document.body.classList.add(`layer-${i}-active`);
   }
 }
 

@@ -16,7 +16,6 @@
 
   </head>
   <body>
-
     <div class="square">
       <div class="square-content">
         <svg
@@ -41,13 +40,13 @@
     </div>
 
     <div id="modifiers-left" class="modifiers">
-      <button ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">w</button>
-      <button ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">*</button>
+      <button class="layer-1" ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">w</button>
+      <button class="layer-2" ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">*</button>
     </div>
 
     <div id="modifiers-right" class="modifiers">
-      <button ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">w</button>
-      <button ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">*</button>
+      <button class="layer-1" ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">w</button>
+      <button class="layer-2" ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">*</button>
     </div>
 
     <div class="square">
@@ -56,7 +55,7 @@
           Tap to scramble
         </div>
 
-        <table id="touch-keyboard">
+        <table class="touch-keyboard">
         </table>
       </div>
     </div>
