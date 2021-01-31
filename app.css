@@ -102,9 +102,9 @@ button {
 }
 
 body.layer-1-active button.layer-1 {
-  background: #8babc7;
+  background: #d8d27d;
 }
 
 body.layer-2-active button.layer-2 {
-  background: #d8d27d;
+  background: #8babc7;
 }

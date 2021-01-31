@@ -17,15 +17,15 @@ touchKeyboard.layers = `
   L  F' F  R'
   x' D  D' x
 
-  _  b  b' _
-  l' u' u  r
-  l  f' f  r'
-  _  d  d' _
-
   _  _  _  _
   M  _  _  M
   M' _  _  M'
   z' _  _  z
+
+  _  b  b' _
+  l' u' u  r
+  l  f' f  r'
+  _  d  d' _
 
 `.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
 
