@@ -12,10 +12,10 @@ touchKeyboard = new touchKeyboard()
 
 touchKeyboard.layers = `
 
-  y' B  B' y
+  x  B  B' x'
   L' U' U  R
   L  F' F  R'
-  x' D  D' x
+  y' D  D' y
 
   _  _  _  _
   M  _  _  M
