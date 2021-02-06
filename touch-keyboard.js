@@ -103,7 +103,7 @@ function getBinding(r, c) {
 
 /**
  * eventType: 'press' | 'release'
- * key: MoveKey | ModifierKey
+ * key: MoveKey | ModifierKey | OrientationKey
  *
  * MoveKey {
  *   keyType: 'move'
@@ -116,11 +116,15 @@ function getBinding(r, c) {
  *   keyType: 'modifier';
  *   layer: number; // TODO: Hack: When 'release' this must be 0, not the layer of the button. Clean this up...
  * }
+ *
+ * OrientationKey {
+ *   keyType: 'orientation'
+ * }
  */
 function handleTouchKeyboardEvent(eventType, key) {
   if (!['press', 'release'].includes(eventType)) {
     throw new Error("Invalid eventType: " + eventType);
-  } else if (!['move', 'modifier'].includes(key.keyType)) {
+  } else if (!['move', 'modifier', 'orientation'].includes(key.keyType)) {
     throw new Error("Invalid keyType: " + key.keyType);
   }
 
@@ -132,5 +136,12 @@ function handleTouchKeyboardEvent(eventType, key) {
     }
   } else if (key.keyType === 'modifier') {
     activateLayer(key.layer);
+  } else if (key.keyType === 'orientation') {
+    if (eventType === 'press') {
+      // TODO this button is like "space" but probably should only be for orientation, not scrambling
+      handleSpace();
+    } else if (eventType === 'release') {
+      // do nothing
+    }
   }
 }

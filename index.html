@@ -75,8 +75,9 @@
         w
       </button>
 
-      <!-- TODO this button is like "space" but probably should only be for orientation, not scrambling -->
-      <button ontouchstart="handleSpace()">&#x21CC</button>
+      <button ontouchstart="handleTouchKeyboardEvent('press', { keyType: 'orientation' })">
+        &#x21CC
+      </button>
     </div>
 
     <div id="modifiers-right" class="modifiers">
@@ -114,7 +115,9 @@
       >
         w
       </button>
-      <button ontouchstart="handleSpace()">&#x21CC</button>
+      <button ontouchstart="handleTouchKeyboardEvent('press', { keyType: 'orientation' })">
+        &#x21CC
+      </button>
     </div>
 
     <div class="square">
