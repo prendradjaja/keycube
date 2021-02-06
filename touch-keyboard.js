@@ -4,6 +4,7 @@ class touchKeyboard {
   DOUBLE_TAP_DELAY_MS = 300;
   layers = undefined; // will be initialized below
   lastKeyPress = undefined; // { timestampMS, key }
+  ignoreNextModifierRelease = false;
   activeLayerIndex = 0;
   getActiveLayer() {
     return this.layers[this.activeLayerIndex];
@@ -77,7 +78,7 @@ function handleModifierKeyEvent(eventType, layer) {
     if (lastPress?.key.keyType === 'modifier' && lastPress.key.layer === layer) {
       const delay = new Date().valueOf() - lastPress.timestampMS;
       if (delay < touchKeyboard.DOUBLE_TAP_DELAY_MS) {
-        console.log("double tap", layer);
+        touchKeyboard.ignoreNextModifierRelease = true;
       }
     }
 
@@ -85,9 +86,13 @@ function handleModifierKeyEvent(eventType, layer) {
     drawKeyboard();
     document.body.classList.add(`layer-${layer}-active`);
   } else if (eventType === 'release') {
-    touchKeyboard.activeLayerIndex = 0;
-    drawKeyboard();
-    [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
+    if (!touchKeyboard.ignoreNextModifierRelease) {
+      touchKeyboard.activeLayerIndex = 0;
+      drawKeyboard();
+      [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
+    } else {
+      touchKeyboard.ignoreNextModifierRelease = false;
+    }
   } else {
     throw new Error("Invalid eventType: " + eventType);
   }
