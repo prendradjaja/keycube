@@ -40,7 +40,14 @@ function createTouchKeyboard() {
         <td>
           <button
             id="touch-keyboard-button-${r}-${c}"
-            ontouchstart="handleButtonClick(this, ${r}, ${c})"
+            ontouchstart="
+              handleTouchKeyboardEvent('press', {
+                keyType: 'move',
+                button: this,
+                row: ${r},
+                column: ${c},
+              })
+            "
           >
           </button>
         </td>
@@ -52,7 +59,7 @@ function createTouchKeyboard() {
   activateLayer(0);
 }
 
-function handleButtonClick(button, r, c) {
+function handleMoveKeyPress(button, r, c) {
   const { move } = getBinding(r, c);
   handleMove(move);
 
@@ -92,4 +99,38 @@ function getBinding(r, c) {
     fallThrough = true;
   }
   return { move, fallThrough };
+}
+
+/**
+ * eventType: 'press' | 'release'
+ * key: MoveKey | ModifierKey
+ *
+ * MoveKey {
+ *   keyType: 'move'
+ *   button: HTMLButtonElement;
+ *   row: number;
+ *   column: number;
+ * }
+ *
+ * ModifierKey {
+ *   keyType: 'modifier'
+ *   layer: number;
+ * }
+ */
+function handleTouchKeyboardEvent(eventType, key) {
+  if (!['press', 'release'].includes(eventType)) {
+    throw new Error("Invalid eventType: " + eventType);
+  } else if (!['move', 'modifier'].includes(key.keyType)) {
+    throw new Error("Invalid keyType: " + key.keyType);
+  }
+
+  if (key.keyType === 'move') {
+    if (eventType === 'press') {
+      handleMoveKeyPress(key.button, key.row, key.column);
+    } else if (eventType === 'release') {
+      // do nothing
+    }
+  } else if (keyType === 'modifier') {
+    // to implement
+  }
 }
