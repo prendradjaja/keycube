@@ -108,3 +108,12 @@ body.layer-1-active button.layer-1 {
 body.layer-2-active button.layer-2 {
   background: #8babc7;
 }
+
+.debug-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: gray;
+  font-family: sans-serif;
+  margin-left: 2px;
+}
