@@ -1,7 +1,9 @@
 const touchKeyboardEl = document.getElementsByClassName('touch-keyboard')[0];
 
 class touchKeyboard {
+  DOUBLE_TAP_DELAY_MS = 300;
   layers = undefined; // will be initialized below
+  lastKeyPress = undefined; // { timestampMS, key }
   activeLayerIndex = 0;
   getActiveLayer() {
     return this.layers[this.activeLayerIndex];
@@ -71,6 +73,14 @@ function handleMoveKeyPress(button, r, c) {
 
 function handleModifierKeyEvent(eventType, layer) {
   if (eventType === 'press') {
+    const lastPress = touchKeyboard.lastKeyPress;
+    if (lastPress?.key.keyType === 'modifier' && lastPress.key.layer === layer) {
+      const delay = new Date().valueOf() - lastPress.timestampMS;
+      if (delay < touchKeyboard.DOUBLE_TAP_DELAY_MS) {
+        console.log("double tap", layer);
+      }
+    }
+
     touchKeyboard.activeLayerIndex = layer;
     drawKeyboard();
     document.body.classList.add(`layer-${layer}-active`);
@@ -154,5 +164,12 @@ function handleTouchKeyboardEvent(eventType, key) {
     } else if (eventType === 'release') {
       // do nothing
     }
+  }
+
+  if (eventType === 'press') {
+    touchKeyboard.lastKeyPress = {
+      timestampMS: new Date().valueOf(),
+      key,
+    };
   }
 }
