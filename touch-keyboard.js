@@ -56,7 +56,7 @@ function createTouchKeyboard() {
     keyboardHtml += '</tr>';
   }
   touchKeyboardEl.innerHTML = keyboardHtml;
-  activateLayer(0);
+  drawKeyboard();
 }
 
 function handleMoveKeyPress(button, r, c) {
@@ -69,25 +69,36 @@ function handleMoveKeyPress(button, r, c) {
   }, 200);
 }
 
-function activateLayer(i) {
-  touchKeyboard.activeLayerIndex = i;
+function handleModifierKeyEvent(eventType, layer) {
+  if (eventType === 'press') {
+    touchKeyboard.activeLayerIndex = layer;
+    drawKeyboard();
+    document.body.classList.add(`layer-${layer}-active`);
+  } else if (eventType === 'release') {
+    touchKeyboard.activeLayerIndex = 0;
+    drawKeyboard();
+    [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
+  } else {
+    throw new Error("Invalid eventType: " + eventType);
+  }
+}
+
+/**
+ * Set all the buttons' text and layer classes.
+ */
+function drawKeyboard() {
+  const layer = touchKeyboard.activeLayerIndex;
   for (let [r, row] of touchKeyboard.getActiveLayer().entries()) {
     for (let [c, key] of row.entries()) {
       const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
       const { move, fallThrough } = getBinding(r, c);
       buttonEl.textContent = move;
-      if (!fallThrough && i !== 0) {
-        buttonEl.classList.add(`layer-${i}`);
+      if (!fallThrough && layer !== 0) {
+        buttonEl.classList.add(`layer-${layer}`);
       } else {
         [1, 2].forEach(j => buttonEl.classList.remove(`layer-${j}`));
       }
     }
-  }
-
-  if (i === 0) {
-    [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
-  } else {
-    document.body.classList.add(`layer-${i}-active`);
   }
 }
 
@@ -114,7 +125,7 @@ function getBinding(r, c) {
  *
  * ModifierKey {
  *   keyType: 'modifier';
- *   layer: number; // TODO: Hack: When 'release' this must be 0, not the layer of the button. Clean this up...
+ *   layer: number | undefined; // only matters for 'press' event
  * }
  *
  * OrientationKey {
@@ -135,7 +146,7 @@ function handleTouchKeyboardEvent(eventType, key) {
       // do nothing
     }
   } else if (key.keyType === 'modifier') {
-    activateLayer(key.layer);
+    handleModifierKeyEvent(eventType, key.layer);
   } else if (key.keyType === 'orientation') {
     if (eventType === 'press') {
       // TODO this button is like "space" but probably should only be for orientation, not scrambling
