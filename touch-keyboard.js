@@ -113,8 +113,8 @@ function getBinding(r, c) {
  * }
  *
  * ModifierKey {
- *   keyType: 'modifier'
- *   layer: number;
+ *   keyType: 'modifier';
+ *   layer: number; // TODO: Hack: When 'release' this must be 0, not the layer of the button. Clean this up...
  * }
  */
 function handleTouchKeyboardEvent(eventType, key) {
@@ -130,7 +130,7 @@ function handleTouchKeyboardEvent(eventType, key) {
     } else if (eventType === 'release') {
       // do nothing
     }
-  } else if (keyType === 'modifier') {
-    // to implement
+  } else if (key.keyType === 'modifier') {
+    activateLayer(key.layer);
   }
 }

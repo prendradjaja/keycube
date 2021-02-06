@@ -40,16 +40,80 @@
     </div>
 
     <div id="modifiers-left" class="modifiers">
-      <button class="layer-1" ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">*</button>
-      <button class="layer-2" ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">w</button>
+      <button
+        class="layer-1"
+        ontouchstart="
+          handleTouchKeyboardEvent('press', {
+            keyType: 'modifier',
+            layer: 1,
+          })
+        "
+        ontouchend="
+          handleTouchKeyboardEvent('release', {
+            keyType: 'modifier',
+            layer: 0,
+          })
+        "
+      >
+        *
+      </button>
+      <button
+        class="layer-2"
+        ontouchstart="
+          handleTouchKeyboardEvent('press', {
+            keyType: 'modifier',
+            layer: 2,
+          })
+        "
+        ontouchend="
+          handleTouchKeyboardEvent('release', {
+            keyType: 'modifier',
+            layer: 0,
+          })
+        "
+      >
+        w
+      </button>
 
       <!-- TODO this button is like "space" but probably should only be for orientation, not scrambling -->
       <button ontouchstart="handleSpace()">&#x21CC</button>
     </div>
 
     <div id="modifiers-right" class="modifiers">
-      <button class="layer-1" ontouchstart="activateLayer(1)" ontouchend="activateLayer(0)">*</button>
-      <button class="layer-2" ontouchstart="activateLayer(2)" ontouchend="activateLayer(0)">w</button>
+      <button
+        class="layer-1"
+        ontouchstart="
+          handleTouchKeyboardEvent('press', {
+            keyType: 'modifier',
+            layer: 1,
+          })
+        "
+        ontouchend="
+          handleTouchKeyboardEvent('release', {
+            keyType: 'modifier',
+            layer: 0,
+          })
+        "
+      >
+        *
+      </button>
+      <button
+        class="layer-2"
+        ontouchstart="
+          handleTouchKeyboardEvent('press', {
+            keyType: 'modifier',
+            layer: 2,
+          })
+        "
+        ontouchend="
+          handleTouchKeyboardEvent('release', {
+            keyType: 'modifier',
+            layer: 0,
+          })
+        "
+      >
+        w
+      </button>
       <button ontouchstart="handleSpace()">&#x21CC</button>
     </div>
 
