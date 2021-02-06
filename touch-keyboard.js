@@ -79,6 +79,7 @@ function handleModifierKeyEvent(eventType, layer) {
       const delay = new Date().valueOf() - lastPress.timestampMS;
       if (delay < touchKeyboard.DOUBLE_TAP_DELAY_MS) {
         touchKeyboard.ignoreNextModifierRelease = true;
+        document.body.classList.add(`layer-${layer}-double-tapped`);
       }
     }
 
@@ -89,7 +90,10 @@ function handleModifierKeyEvent(eventType, layer) {
     if (!touchKeyboard.ignoreNextModifierRelease) {
       touchKeyboard.activeLayerIndex = 0;
       drawKeyboard();
-      [1, 2].forEach(j => document.body.classList.remove(`layer-${j}-active`));
+      [1, 2].forEach(j => {
+        document.body.classList.remove(`layer-${j}-active`);
+        document.body.classList.remove(`layer-${j}-double-tapped`);
+      });
     } else {
       touchKeyboard.ignoreNextModifierRelease = false;
     }

@@ -109,6 +109,24 @@ body.layer-2-active button.layer-2 {
   background: #8babc7;
 }
 
+body.layer-1-active .modifiers button.layer-1 {
+  font-weight: bold;
+}
+
+body.layer-2-active .modifiers button.layer-2 {
+  font-weight: bold;
+}
+
+body.layer-1-double-tapped .modifiers button.layer-1 {
+  text-decoration: underline;
+}
+
+body.layer-2-double-tapped .modifiers button.layer-2 {
+  text-decoration: underline;
+}
+
+
+
 .debug-info {
   position: absolute;
   top: 0;
