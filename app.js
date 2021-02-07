@@ -59,7 +59,7 @@ function scramble() {
 
   draw(cube);
   globalState.state = INSPECTION;
-  displayText('Unlimited inspection');
+  displayText('Inspection');
 }
 
 function displayText(text) {
