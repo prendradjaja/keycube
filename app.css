@@ -83,7 +83,7 @@ body > * {
   display: block;
   margin-bottom: 4px;
   width: min(10vw, 65px);
-  height: 100px;
+  height: 80px;
 }
 
 .modifiers button:focus {
