@@ -142,14 +142,17 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 .swipe-keyboard {
   height: 100%;
   width: 100%;
+  border-collapse: collapse;
 }
 
 .swipe-keyboard td {
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 .swipe-keyboard button {
-  border: 0;
+  border: 1px solid black;
   background: #c0c0c0;
   height: 100%;
   width: 100%;
