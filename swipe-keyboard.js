@@ -141,7 +141,24 @@ function handleSwipeRotation(newSwipe, lastSwipe, lastMove) {
     return lastMove;
   } else if (rotation === 180) {
     return Cube.inverse(lastMove);
+  } else if (equals(newSwipe, UP)) {
+    return "R";
+  } else if (equals(newSwipe, DOWN)) {
+    return "R'";
+  } else {
+    assert(equals(newSwipe, LEFT) || equals(newSwipe, RIGHT));
+    if (rotation === 90) {
+      return "U";
+    } else if (rotation === 270) {
+      return "U'";
+    } else {
+      error("Impossible state");
+    }
   }
+}
+
+function assert(bool, message) {
+  !bool && error(message || "Impossible state");
 }
 
 function getSwipeRotation(newSwipe, lastSwipe) {
