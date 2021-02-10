@@ -1,8 +1,8 @@
 const swipeKeyboardEl = document.getElementsByClassName('swipe-keyboard')[0];
 
 const swipeKeyboard = {
-  rowsCount: 4,
-  colsCount: 4,
+  rowsCount: 5,
+  colsCount: 5,
   touchPath: [],
   swipes: [],
   moves: [],
