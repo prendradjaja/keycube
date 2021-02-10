@@ -117,25 +117,26 @@ function handleSwipe(newTouch, lastTouch) {
   if (!lastSwipe) {
     lastMove && error("lastMove is defined but lastSwipe isn't");
     if (equals(newSwipe, LEFT)) {
-      newMove = "U'";
+      newMove = "U'"; // TODO hard-coded to "top of U"
     } else if (equals(newSwipe, RIGHT)) {
-      newMove = "U";
+      newMove = "U"; // TODO hard-coded to "top of U"
     } else if (equals(newSwipe, UP)) {
-      newMove = "R";
+      newMove = "R"; // TODO hard-coded to "right"
     } else if (equals(newSwipe, DOWN)) {
-      newMove = "R'";
+      newMove = "R'"; // TODO hard-coded to "right"
     } else {
       error("invalid direction " + newSwipe);
     }
   } else {
     !lastMove && error("lastMove is falsey but lastSwipe isn't");
-    newMove = handleSwipeRotation(newSwipe, lastSwipe, lastMove);
+    newMove = handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch);
   }
   swipeKeyboard.moves.push(newMove);
   handleMove(newMove);
 }
 
-function handleSwipeRotation(newSwipe, lastSwipe, lastMove) {
+function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
+  const firstTouch = swipeKeyboard.touchPath[0];
   const rotation = getSwipeRotation(newSwipe, lastSwipe);
   if (rotation === 0) {
     return lastMove;
@@ -147,12 +148,23 @@ function handleSwipeRotation(newSwipe, lastSwipe, lastMove) {
     return "R'";
   } else {
     assert(equals(newSwipe, LEFT) || equals(newSwipe, RIGHT));
-    if (rotation === 90) {
-      return "U";
-    } else if (rotation === 270) {
-      return "U'";
+    if (equals(newTouch.r, firstTouch.r)) { // neutral R case
+      console.log("neutral R");
+      if (equals(newSwipe, LEFT)) {
+        return "U'"; // TODO hard-coded to "top of U"
+      } else if (equals(newSwipe, RIGHT)) {
+        return "U"; // TODO hard-coded to "top of U"
+      } else {
+        error("Impossible");
+      }
     } else {
-      error("Impossible state");
+      if (rotation === 90) {
+        return "U";
+      } else if (rotation === 270) {
+        return "U'";
+      } else {
+        error("Impossible state");
+      }
     }
   }
 }
