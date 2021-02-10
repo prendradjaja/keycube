@@ -6,7 +6,6 @@ const swipeKeyboard = {
   touchPath: [],
   swipes: [],
   moves: [],
-  clickSound: new Audio('./click.mp3'),
 };
 
 // swipes
@@ -138,7 +137,8 @@ function handleSwipe(newTouch, lastTouch) {
 }
 
 function playClickSound() {
-  swipeKeyboard.clickSound.play();
+  var audio = new Audio('./click.mp3');
+  audio.play();
 }
 
 function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
