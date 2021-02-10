@@ -138,3 +138,19 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
   font-family: sans-serif;
   margin-left: 2px;
 }
+
+.swipe-keyboard {
+  height: 100%;
+  width: 100%;
+}
+
+.swipe-keyboard td {
+  text-align: center;
+}
+
+.swipe-keyboard button {
+  border: 0;
+  background: #c0c0c0;
+  height: 100%;
+  width: 100%;
+}
