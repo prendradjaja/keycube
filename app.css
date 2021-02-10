@@ -153,4 +153,14 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
   background: #c0c0c0;
   height: 100%;
   width: 100%;
+  outline: 0;
+}
+
+#cursor {
+  width: 5px;
+  height: 5px;
+  background: red;
+  position: absolute;
+  left: 0;
+  top: 0;
 }

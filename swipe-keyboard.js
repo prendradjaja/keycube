@@ -18,6 +18,8 @@ for (let [r, row] of swipeKeyboard.keys.entries()) {
     keyboardHtml += `
       <td>
         <button
+          ontouchstart="console.log(event)"
+          ontouchmove="handleMove(event)"
         >
         </button>
       </td>
@@ -26,3 +28,11 @@ for (let [r, row] of swipeKeyboard.keys.entries()) {
   keyboardHtml += '</tr>';
 }
 swipeKeyboardEl.innerHTML = keyboardHtml;
+
+function handleMove(evt) {
+  console.log(evt);
+  window.lastEvent = evt;
+  const cursorEl = document.getElementById('cursor');
+  cursorEl.style.left = evt.touches[0].clientX;
+  cursorEl.style.top = evt.touches[0].clientY;
+}
