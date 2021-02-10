@@ -133,6 +133,12 @@ function handleSwipe(newTouch, lastTouch) {
   }
   swipeKeyboard.moves.push(newMove);
   handleMove(newMove);
+  playClickSound();
+}
+
+function playClickSound() {
+  var audio = new Audio('./click.mp3');
+  audio.play();
 }
 
 function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
