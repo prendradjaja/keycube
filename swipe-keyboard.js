@@ -8,10 +8,11 @@ const swipeKeyboard = {
   moves: [],
 };
 
-const LEFT = 'left';
-const RIGHT = 'right';
-const UP = 'up';
-const DOWN = 'down';
+// swipes
+const LEFT = [0, -1];
+const RIGHT = [0, 1];
+const UP = [-1, 0];
+const DOWN = [1, 0];
 
 swipeKeyboard.keys = (
   new Array(swipeKeyboard.rowsCount)
@@ -90,7 +91,7 @@ swipeKeyboard.handleTouchMove = function handleTouchMove(evt) {
     if (!lastTouch || lastTouch.r !== r || lastTouch.c !== c) {
       const newTouch = {r, c, buttonEl};
       swipeKeyboard.touchPath.push(newTouch);
-      console.log(swipeKeyboard.touchPath.length, swipeKeyboard.touchPath.map(x => `${x.r},${x.c}`).join(' '));
+      // console.log(swipeKeyboard.touchPath.length, swipeKeyboard.touchPath.map(x => `${x.r},${x.c}`).join(' '));
       if (lastTouch) {
         handleSwipe(newTouch, lastTouch);
       }
@@ -101,19 +102,15 @@ swipeKeyboard.handleTouchMove = function handleTouchMove(evt) {
 function handleSwipe(newTouch, lastTouch) {
   const lastSwipe = last(swipeKeyboard.swipes);
   const lastMove = last(swipeKeyboard.moves);
-  let newSwipe;
   if (newTouch.r + 1 === lastTouch.r && newTouch.c === lastTouch.c) {
-    newSwipe = UP;
   } else if (newTouch.r - 1 === lastTouch.r && newTouch.c === lastTouch.c) {
-    newSwipe = DOWN;
   } else if (newTouch.c + 1 === lastTouch.c && newTouch.r === lastTouch.r) {
-    newSwipe = LEFT;
   } else if (newTouch.c - 1 === lastTouch.c && newTouch.r === lastTouch.r) {
-    newSwipe = RIGHT;
   } else {
     showDebugMessage('DIAGONAL');
     return;
   }
+  const newSwipe = [newTouch.r - lastTouch.r, newTouch.c - lastTouch.c];
 
   swipeKeyboard.swipes.push(newSwipe);
   let newMove;
@@ -139,12 +136,41 @@ function handleSwipe(newTouch, lastTouch) {
 }
 
 function handleSwipeRotation(newSwipe, lastSwipe, lastMove) {
-  if (newSwipe === lastSwipe) {
+  const rotation = getSwipeRotation(newSwipe, lastSwipe);
+  if (rotation === 0) {
     return lastMove;
+  } else if (rotation === 180) {
+    return Cube.inverse(lastMove);
   }
 }
 
-function getRotation(newSwipe, lastSwipe) {
+function getSwipeRotation(newSwipe, lastSwipe) {
+  let swipe = lastSwipe;
+  if (equals(swipe, newSwipe)) {
+    return 0;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 90;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 180;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 270;
+  }
+
+  error("getSwipeRotation couldn't find the answer");
+}
+
+function rotateSwipeClockwise(swipe) {
+  const [r, c] = swipe;
+  return [c, -r];
 }
 
 function error(message) {
