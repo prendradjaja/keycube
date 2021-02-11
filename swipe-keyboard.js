@@ -1,8 +1,8 @@
 const swipeKeyboardEl = document.getElementsByClassName('swipe-keyboard')[0];
 
 const swipeKeyboard = {
-  rowsCount: 6,
-  colsCount: 6,
+  rowsCount: 6, // MUST BE EVEN for isTopHalf
+  colsCount: 6, // MUST BE EVEN for isRightHalf
   touchPath: [],
   swipes: [],
   moves: [],
@@ -74,6 +74,14 @@ function getMatchingBoundingBox(x, y) {
   return undefined;
 }
 
+function isTopHalf({r}) {
+  return r < swipeKeyboard.rowsCount / 2;
+}
+
+function isRightHalf({c}) {
+  return c >= swipeKeyboard.colsCount / 2;
+}
+
 swipeKeyboard.handleTouchMove = function handleTouchMove(evt) {
   // console.log(evt);
   window.lastEvent = evt;
@@ -114,12 +122,12 @@ function handleSwipe(newTouch, lastTouch) {
 
   swipeKeyboard.swipes.push(newSwipe);
   let newMove;
-  if (!lastSwipe) {
+  if (!lastSwipe) { // this is the first swipe
     lastMove && error("lastMove is defined but lastSwipe isn't");
     if (equals(newSwipe, LEFT)) {
-      newMove = "U'"; // TODO hard-coded to "top of U"
+      newMove = isTopHalf(lastTouch) ? "U'" : "U";
     } else if (equals(newSwipe, RIGHT)) {
-      newMove = "U"; // TODO hard-coded to "top of U"
+      newMove = isTopHalf(lastTouch) ? "U" : "U'";
     } else if (equals(newSwipe, UP)) {
       newMove = "R"; // TODO hard-coded to "right"
     } else if (equals(newSwipe, DOWN)) {
@@ -157,9 +165,9 @@ function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
     if (equals(newTouch.r, firstTouch.r)) { // neutral R case
       console.log("neutral R");
       if (equals(newSwipe, LEFT)) {
-        return "U'"; // TODO hard-coded to "top of U"
+        return isTopHalf(firstTouch) ? "U'" : "U";
       } else if (equals(newSwipe, RIGHT)) {
-        return "U"; // TODO hard-coded to "top of U"
+        return isTopHalf(firstTouch) ? "U" : "U'";
       } else {
         error("Impossible");
       }
