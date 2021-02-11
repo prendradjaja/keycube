@@ -34,6 +34,7 @@ body > * {
 
 
 #text-display {
+  display: none;
   opacity: 0;
   color: white;
   font-family: sans-serif;
