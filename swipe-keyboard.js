@@ -149,9 +149,9 @@ function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
   } else if (rotation === 180) {
     return Cube.inverse(lastMove);
   } else if (equals(newSwipe, UP)) {
-    return "R";
+    return "R"; // TODO hard-coded to "right"
   } else if (equals(newSwipe, DOWN)) {
-    return "R'";
+    return "R'"; // TODO hard-coded to "right"
   } else {
     assert(equals(newSwipe, LEFT) || equals(newSwipe, RIGHT));
     if (equals(newTouch.r, firstTouch.r)) { // neutral R case
