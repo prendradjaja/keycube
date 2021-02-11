@@ -92,7 +92,14 @@ function randomChoice(array) {
 function scramble() {
   // cube.init(Cube.random());
   cube.init(new Cube());
-  const { item: scramble, index: scrambleIndex } = randomChoice(crossSolvedScrambles);
+  const userIndex = window.prompt("Scramble? Blank for random");
+  let scramble, scrambleIndex;
+  if (userIndex === "" || userIndex == null) {
+    ({ item: scramble, index: scrambleIndex } = randomChoice(crossSolvedScrambles));
+  } else {
+    scrambleIndex = +userIndex;
+    scramble = crossSolvedScrambles[scrambleIndex];
+  }
   cube.move(scramble);
   showDebugMessage('Scramble ' + scrambleIndex);
 
