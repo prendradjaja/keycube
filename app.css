@@ -26,6 +26,10 @@ body > * {
   padding-bottom: 100%;
 }
 
+svg {
+  margin-left: 80px;
+}
+
 .square-content {
   position: absolute;
   width: 100%;
@@ -43,6 +47,7 @@ body > * {
 }
 
 .touch-keyboard {
+  display: none;
   height: 100%;
   width: 100%;
   opacity: 0.3;
@@ -88,10 +93,9 @@ body > * {
 
 .modifiers button {
   opacity: 0.3;
-  display: block;
   margin-bottom: 4px;
   width: min(10vw, 65px);
-  height: 90px;
+  height: 60px;
 }
 
 .modifiers button:focus {
