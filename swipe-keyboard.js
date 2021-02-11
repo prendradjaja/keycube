@@ -129,9 +129,9 @@ function handleSwipe(newTouch, lastTouch) {
     } else if (equals(newSwipe, RIGHT)) {
       newMove = isTopHalf(lastTouch) ? "U" : "U'";
     } else if (equals(newSwipe, UP)) {
-      newMove = "R"; // TODO hard-coded to "right"
+      newMove = isRightHalf(lastTouch) ? "R" : "L'";
     } else if (equals(newSwipe, DOWN)) {
-      newMove = "R'"; // TODO hard-coded to "right"
+      newMove = isRightHalf(lastTouch) ? "R'" : "L";
     } else {
       error("invalid direction " + newSwipe);
     }
@@ -157,9 +157,9 @@ function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
   } else if (rotation === 180) {
     return Cube.inverse(lastMove);
   } else if (equals(newSwipe, UP)) {
-    return "R"; // TODO hard-coded to "right"
+    return isRightHalf(firstTouch) ? "R" : "L'";
   } else if (equals(newSwipe, DOWN)) {
-    return "R'"; // TODO hard-coded to "right"
+    return isRightHalf(firstTouch) ? "R'" : "L";
   } else {
     assert(equals(newSwipe, LEFT) || equals(newSwipe, RIGHT));
     if (equals(newTouch.r, firstTouch.r)) { // neutral R case
