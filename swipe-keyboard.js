@@ -6,6 +6,8 @@ const swipeKeyboard = {
   touchPath: [],
   swipes: [],
   moves: [],
+  uMoveMode: undefined, // 'top' | 'bottom' Unlike lrMoveMode, this is only used in "neutral R" position
+  lrMoveMode: undefined, // 'left' | 'right'
 };
 
 // swipes
@@ -120,25 +122,26 @@ function handleSwipe(newTouch, lastTouch) {
   }
   const newSwipe = [newTouch.r - lastTouch.r, newTouch.c - lastTouch.c];
 
+  if (!swipeKeyboard.uMoveMode) {
+    swipeKeyboard.uMoveMode = isTopHalf(lastTouch) ? 'top' : 'bottom';
+    console.log("Set u move mode:", swipeKeyboard.uMoveMode);
+  }
+
   swipeKeyboard.swipes.push(newSwipe);
   let newMove;
-  if (!lastSwipe) { // this is the first swipe
-    lastMove && error("lastMove is defined but lastSwipe isn't");
-    if (equals(newSwipe, LEFT)) {
-      newMove = isTopHalf(lastTouch) ? "U'" : "U";
-    } else if (equals(newSwipe, RIGHT)) {
-      newMove = isTopHalf(lastTouch) ? "U" : "U'";
-    } else if (equals(newSwipe, UP)) {
-      newMove = isRightHalf(lastTouch) ? "R" : "L'";
-    } else if (equals(newSwipe, DOWN)) {
-      newMove = isRightHalf(lastTouch) ? "R'" : "L";
-    } else {
-      error("invalid direction " + newSwipe);
+
+  if (equals(newSwipe, LEFT) || equals(newSwipe, RIGHT)) {
+    newMove = getUMove(newSwipe, newTouch);
+  } else if (equals(newSwipe, UP) || equals(newSwipe, DOWN)) {
+    if (!swipeKeyboard.lrMoveMode) {
+      swipeKeyboard.lrMoveMode = isRightHalf(lastTouch) ? 'right' : 'left';
+      console.log("Set lr move mode:", swipeKeyboard.lrMoveMode);
     }
+    newMove = getLRMove(newSwipe);
   } else {
-    !lastMove && error("lastMove is falsey but lastSwipe isn't");
-    newMove = handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch);
+    error("invalid direction " + newSwipe);
   }
+
   swipeKeyboard.moves.push(newMove);
   handleMove(newMove);
   // playClickSound(); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
@@ -149,37 +152,33 @@ function playClickSound() {
   audio.play();
 }
 
-function handleSwipeRotation(newSwipe, lastSwipe, lastMove, newTouch) {
+function getUMove(swipe, newTouch) {
+  assert(equals(swipe, LEFT) || equals(swipe, RIGHT));
+  assert(['top', 'bottom'].includes(swipeKeyboard.uMoveMode));
+
   const firstTouch = swipeKeyboard.touchPath[0];
-  const rotation = getSwipeRotation(newSwipe, lastSwipe);
-  if (rotation === 0) {
-    return lastMove;
-  } else if (rotation === 180) {
-    return Cube.inverse(lastMove);
-  } else if (equals(newSwipe, UP)) {
-    return isRightHalf(firstTouch) ? "R" : "L'";
-  } else if (equals(newSwipe, DOWN)) {
-    return isRightHalf(firstTouch) ? "R'" : "L";
+
+  let uMoveMode;
+  if (newTouch.r === firstTouch.r) {
+    uMoveMode = swipeKeyboard.uMoveMode;
   } else {
-    assert(equals(newSwipe, LEFT) || equals(newSwipe, RIGHT));
-    if (equals(newTouch.r, firstTouch.r)) { // neutral R case
-      console.log("neutral R");
-      if (equals(newSwipe, LEFT)) {
-        return isTopHalf(firstTouch) ? "U'" : "U";
-      } else if (equals(newSwipe, RIGHT)) {
-        return isTopHalf(firstTouch) ? "U" : "U'";
-      } else {
-        error("Impossible");
-      }
-    } else {
-      if (rotation === 90) {
-        return "U";
-      } else if (rotation === 270) {
-        return "U'";
-      } else {
-        error("Impossible state");
-      }
-    }
+    uMoveMode = newTouch.r > firstTouch.r ? 'bottom' : 'top';
+  }
+
+  if (equals(swipe, LEFT)) {
+    return uMoveMode === 'top' ? "U'" : "U";
+  } else {
+    return uMoveMode === 'top' ? "U" : "U'";
+  }
+}
+
+function getLRMove(swipe) {
+  assert(equals(swipe, UP) || equals(swipe, DOWN));
+  assert(['left', 'right'].includes(swipeKeyboard.lrMoveMode));
+  if (equals(swipe, UP)) {
+    return swipeKeyboard.lrMoveMode === 'right' ? "R" : "L'";
+  } else {
+    return swipeKeyboard.lrMoveMode === 'right' ? "R'" : "L";
   }
 }
 
@@ -231,6 +230,8 @@ swipeKeyboard.handleTouchStart = function handleTouchStart(evt) {
   swipeKeyboard.handleTouchMove(evt);
   swipeKeyboard.swipes = [];
   swipeKeyboard.moves = [];
+  swipeKeyboard.uMoveMode = undefined;
+  swipeKeyboard.lrMoveMode = undefined;
 };
 
 swipeKeyboard.handleTouchEnd = function handleTouchEnd(evt) {
