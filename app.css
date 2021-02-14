@@ -142,7 +142,7 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 .debug-info {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 100px;
   color: gray;
   font-family: sans-serif;
   margin-left: 2px;
