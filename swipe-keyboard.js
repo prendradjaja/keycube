@@ -1,8 +1,8 @@
 const swipeKeyboardEl = document.getElementsByClassName('swipe-keyboard')[0];
 
 const swipeKeyboard = {
-  rowsCount: 6, // MUST BE EVEN for isTopHalf
-  colsCount: 6, // MUST BE EVEN for isRightHalf
+  rowsCount: 8, // MUST BE EVEN for isTopHalf
+  colsCount: 8, // MUST BE EVEN for isRightHalf
   touchPath: [],
   swipes: [],
   moves: [],

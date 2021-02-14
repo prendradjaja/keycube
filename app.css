@@ -1,7 +1,7 @@
 body {
   background: #2f3338;
   text-align: center;
-  margin-top: 0;
+  margin: 0;
 
   /* Disables pull-to-refresh but allows overscroll glow effects.
    * https://developers.google.com/web/updates/2017/11/overscroll-behavior */
@@ -179,6 +179,6 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 
 #debug-refresh {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
 }
