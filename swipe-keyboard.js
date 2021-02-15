@@ -166,9 +166,9 @@ function getUMove(swipe, newTouch) {
   }
 
   if (equals(swipe, LEFT)) {
-    return uMoveMode === 'top' ? "U'" : "U";
-  } else {
     return uMoveMode === 'top' ? "U" : "U'";
+  } else {
+    return uMoveMode === 'top' ? "U'" : "U";
   }
 }
 
