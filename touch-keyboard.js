@@ -15,20 +15,12 @@ touchKeyboard = new touchKeyboard()
 
 touchKeyboard.layers = `
 
-  y' B  B' y
-  L' U' U  R
-  L  F' F  R'
-  x' D  D' x
-
-  _  _  _  _
-  M  _  _  M
-  M' _  _  M'
-  z' _  _  z
-
-  _  b  b' _
-  l' u' u  r
-  l  f' f  r'
-  _  d  d' _
+    _ _ _ _ _ _
+  _  y' B  B' y  _
+  _  L' U' U  R  _
+  _  L  F' F  R' _
+  _  x' D  D' x  _
+    _ _ _ _ _ _
 
 `.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
 
