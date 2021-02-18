@@ -30,6 +30,7 @@ body > * {
 
 
 #text-display {
+  display: none;
   color: white;
   font-family: sans-serif;
   margin-bottom: 16px;
