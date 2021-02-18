@@ -13,7 +13,7 @@ function clickBuzz( frequency, length) {
     var oscillatorNode = new OscillatorNode(audioContext, {type: 'square'});
     oscillatorNode.frequency.value = frequency;
     oscillatorNode.connect( nodeGain1);
-    oscillatorNode.start(audioContext.currentTime);
+    oscillatorNode.start();
     //setTimeout( function(){oscillatorNode.stop();}, length*1000);
     oscillatorNode.stop( audioContext.currentTime + length);
 }
