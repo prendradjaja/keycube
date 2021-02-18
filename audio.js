@@ -6,7 +6,7 @@ var masterGain = audioContext.createGain();
 masterGain.connect(audioContext.destination);
 
 var nodeGain1 = audioContext.createGain();
-    nodeGain1.gain.value = 0.5;
+    nodeGain1.gain.value = 0.2;
 nodeGain1.connect(masterGain);
 
 function clickBuzz( frequency, length) {

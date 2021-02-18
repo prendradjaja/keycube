@@ -144,14 +144,16 @@ function handleSwipe(newTouch, lastTouch) {
 
   swipeKeyboard.moves.push(newMove);
   handleMove(newMove);
-  playClickSound(); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
+  playClickSound(newMove); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
 }
 
-function playClickSound() {
-  // var audio = new Audio('./click.mp3');
-  // audio.play();
-
-  clickBuzz( 261.6, 0.020)
+function playClickSound(newMove) {
+  if (newMove.includes('R')) {
+    var audio = new Audio('./click.mp3');
+    audio.play();
+  } else {
+    clickBuzz( 261.6, 0.020)
+  }
 }
 
 function getUMove(swipe, newTouch) {
