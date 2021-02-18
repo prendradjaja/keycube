@@ -144,11 +144,11 @@ function handleSwipe(newTouch, lastTouch) {
 
   swipeKeyboard.moves.push(newMove);
   handleMove(newMove);
-  playClickSound(); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
+  // playClickSound(); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
 }
 
 function playClickSound() {
-  var audio = new Audio('data:audio/mp3;base64,//OEZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAEAAADkAA7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzvExMTExMTExMTExMTExMTExMTExMTExMTE9/f39/f39/f39/f39/f39/f39/f39/f39/////////////////////////////////8AAAA5TEFNRTMuOTlyAm4AAAAALDgAABRGJAQ9TgAARgAAA5AqpdFaAAAAAAAAAAAAAAAAAAAA//N0ZAAIxINng6CMAA24BrMXQRAAmaqamTABK4AAAAAACYxjGxvkAAF/+/+7hwN30AwNz0RCP0RE3QABCD74Ph9QPv/1OlDnE//xAZiAELP8oCDpR3/4If//D+Zm5uZABFcI3ACAIAhB8HwfP1AgcXifid8HzenwQ+XPwf//KHOJz////BA5hiJ3lw//+GP//h/gUCAQAABNQTnwion3jDBdvKJFRZv5//PEZBYcBcFHEMbQACVjaoMBjYgBAhCEBY4BqJ8xGea2BkogHlMAaV4BsUQBKEiwrpATQjfgZtwA03AzjsBocBtJoGQZGLENMUC9+BmmIGKIAasEBiSQDQY1IoUieHSUTyX+BgRAIR4AIoB4sETEDEFQDiIC5IYNFZdIcTR84Zf8G4g94S8aADwAnEAkAHpha8KOHykNTLpsxkk7WUv/8nCJEWFeD9xcQ5o4Q9EghBjUmiPFnEDrWoxRZLV///xQI/hiUSIckfAsRLi5RLhzRrC3B6Q3xZpfGZOfKjCJ1bAEgFgEgAAAABiXfCoifeCdAC145IoELXf0jEZwL46vhlwBRB6QYqEJ0lrr+Frwo4X9IkDckPQXXq/D0RmBBIZYgxsUlOv/4zQ+SBD7GyLNIKM8a+r/+RYrFk8Q41IEXyaPkycr///8XMG5DIwYtDKAGUMyAaBqBYcIRitjcumS3RWyV6qK///9FZdOIqNnROIqNjJLigJCdVVVVU/jeq9V//NkZAsPdcL6oeG0AAAAAiABwAAASYCAhRkJcCTAFYAJQASgHUFyPmReNnWiiykUUWpJf9SXSSf1ootSSSakkloo/9SSSX/Uk9aSTomqA4gnwJ0JiYDiHsbLRb/qRRbSSScyHsPYexeej/6kn/0UW1JetFFFH/V//1mJdCoKnf5UFQ1ywNUW1UxBTUUzLjk5//MUZAoAAAB4AAAAAABgBBAAeAAALjVV');
+  var audio = new Audio('./click.mp3');
   audio.play();
 }
 
