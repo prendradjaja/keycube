@@ -22,6 +22,7 @@ document.addEventListener('keydown', event => {
 });
 
 function handleSpace() {
+  clickBuzz( 329.63, 0.020)
   if (globalState.state === SOLVING || globalState.state === INSPECTION) {
     event.preventDefault();
     globalState.angle = otherAngle(globalState.angle);
