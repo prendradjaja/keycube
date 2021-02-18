@@ -148,11 +148,13 @@ function handleSwipe(newTouch, lastTouch) {
 }
 
 function playClickSound(newMove) {
-  if (newMove.includes('R')) {
-    var audio = new Audio('./click.mp3');
-    audio.play();
+  // var audio = new Audio('./click.mp3');
+  // audio.play();
+
+  if (newMove.includes('U') || newMove.includes('D')) {
+    clickBuzz( 329.63, 0.020)
   } else {
-    clickBuzz( 261.6, 0.020)
+    clickBuzz( 261.63, 0.020)
   }
 }
 
