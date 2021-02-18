@@ -1,7 +1,11 @@
 body {
   background: #2f3338;
   text-align: center;
-  margin-top: 0;
+  margin: 0;
+
+  /* Disables pull-to-refresh but allows overscroll glow effects.
+   * https://developers.google.com/web/updates/2017/11/overscroll-behavior */
+  overscroll-behavior-y: contain;
 }
 
 body > * {
@@ -22,6 +26,10 @@ body > * {
   padding-bottom: 100%;
 }
 
+svg {
+  margin-left: 95px;
+}
+
 .square-content {
   position: absolute;
   width: 100%;
@@ -30,6 +38,8 @@ body > * {
 
 
 #text-display {
+  display: none;
+  opacity: 0;
   color: white;
   font-family: sans-serif;
   margin-bottom: 16px;
@@ -37,8 +47,10 @@ body > * {
 }
 
 .touch-keyboard {
+  display: none;
   height: 100%;
   width: 100%;
+  opacity: 0.3;
 }
 
 .touch-keyboard td {
@@ -80,10 +92,10 @@ body > * {
 }
 
 .modifiers button {
-  display: block;
+  opacity: 0.3;
   margin-bottom: 4px;
   width: min(10vw, 65px);
-  height: 100px;
+  height: 60px;
 }
 
 .modifiers button:focus {
@@ -130,8 +142,43 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 .debug-info {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 100px;
   color: gray;
   font-family: sans-serif;
   margin-left: 2px;
+}
+
+.swipe-keyboard {
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.swipe-keyboard td {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.swipe-keyboard button {
+  border: 1px solid black;
+  background: #c0c0c0;
+  height: 100%;
+  width: 100%;
+  outline: 0;
+}
+
+#cursor {
+  width: 5px;
+  height: 5px;
+  background: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#debug-refresh {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
