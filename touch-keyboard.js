@@ -6,6 +6,17 @@ class touchKeyboard {
   lastKeyPress = undefined; // { timestampMS, key }
   ignoreNextModifierRelease = false;
   activeLayerIndex = 0;
+  specialKeys = {
+    '|': {
+      label: '|',
+      handler: () => handleSpace(),
+    },
+    '_': {
+      label: '',
+      handler: () => {},
+    },
+  };
+
   getActiveLayer() {
     return this.layers[this.activeLayerIndex];
   }
@@ -19,7 +30,7 @@ touchKeyboard.layers = `
   _  y' B  B' y  _
   _  L' U' U  R  _
   _  L  F' F  R' _
-  _  x' D  D' x  _
+  |  x' D  D' x  |
     _ _ _ _ _ _
 
 `.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
@@ -55,8 +66,12 @@ function createTouchKeyboard() {
 }
 
 function handleMoveKeyPress(button, r, c) {
-  const { move } = getBinding(r, c);
-  handleMove(move);
+  const { move, handler } = getBinding(r, c);
+  if (move) {
+    handleMove(move);
+  } else if (handler) {
+    handler();
+  }
 
   button.classList.add('active');
   setTimeout(() => { // TODO maybe do this on touchend
@@ -102,8 +117,8 @@ function drawKeyboard() {
   for (let [r, row] of touchKeyboard.getActiveLayer().entries()) {
     for (let [c, key] of row.entries()) {
       const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
-      const { move, fallThrough } = getBinding(r, c);
-      buttonEl.textContent = move;
+      const { label, fallThrough } = getBinding(r, c);
+      buttonEl.textContent = label;
       if (!fallThrough && layer !== 0) {
         buttonEl.classList.add(`layer-${layer}`);
       } else {
@@ -114,13 +129,26 @@ function drawKeyboard() {
 }
 
 function getBinding(r, c) {
-  let move = touchKeyboard.getActiveLayer()[r][c];
+  let symbol = touchKeyboard.getActiveLayer()[r][c];
   let fallThrough = false;
-  if (move === '_') {
-    move = touchKeyboard.layers[0][r][c];
+  if (symbol === '_') {
+    symbol = touchKeyboard.layers[0][r][c];
     fallThrough = true;
   }
-  return { move, fallThrough };
+
+  const specialKey = touchKeyboard.specialKeys[symbol];
+  if (!specialKey) {
+    return {
+      label: symbol,
+      move: symbol,
+      fallThrough,
+    };
+  } else {
+    return {
+      label: specialKey.label,
+      handler: specialKey.handler,
+    };
+  }
 }
 
 /**
