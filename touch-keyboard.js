@@ -1,11 +1,14 @@
 const touchKeyboardEl = document.getElementsByClassName('touch-keyboard')[0];
 
+// swipes
+const LEFT = [0, -1];
+const RIGHT = [0, 1];
+const UP = [-1, 0];
+const DOWN = [1, 0];
+
 class touchKeyboard {
+  // config
   DOUBLE_TAP_DELAY_MS = 300;
-  layers = undefined; // will be initialized below
-  lastKeyPress = undefined; // { timestampMS, key }
-  ignoreNextModifierRelease = false;
-  activeLayerIndex = 0;
   specialKeys = {
     '|': {
       label: '|',
@@ -16,6 +19,24 @@ class touchKeyboard {
       handler: () => {},
     },
   };
+  layers = undefined; // will be initialized below
+
+  // derived constants
+  rowsCount = undefined; // will be initialized below
+  colsCount = undefined; // will be initialized below
+
+  // state related to tap behahvior
+  lastKeyPress = undefined; // { timestampMS, key }
+  ignoreNextModifierRelease = false;
+  activeLayerIndex = 0;
+
+  // state related to swipe behavior
+  touchPath = [];
+  swipes = [];
+  moves = [];
+  uMoveMode = undefined; // 'top' | 'bottom' Unlike lrMoveMode, this is only used in "neutral R" position
+  lrMoveMode = undefined; // 'left' | 'right'
+
 
   getActiveLayer() {
     return this.layers[this.activeLayerIndex];
@@ -24,6 +45,7 @@ class touchKeyboard {
 }
 touchKeyboard = new touchKeyboard()
 
+// MUST BE EVEN for isTopHalf and isRightHalf
 touchKeyboard.layers = `
 
   _  _  _  _  _  _
@@ -36,6 +58,12 @@ touchKeyboard.layers = `
 `.split('\n\n').map(chunk => chunk.trim()).filter(chunk => chunk).map(chunk => chunk.split('\n').map(line => line.trim().split(/\s+/)))
 
 createTouchKeyboard();
+
+(function initializeDimensions() {
+  const keyboard = touchKeyboard.layers[0]; // Doesn't matter which layer we use
+  touchKeyboard.rowsCount = keyboard.length;
+  touchKeyboard.colsCount = keyboard[0].length;
+})();
 
 function createTouchKeyboard() {
   let keyboardHtml = '';
