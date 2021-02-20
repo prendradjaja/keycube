@@ -240,15 +240,15 @@ function getMatchingBoundingBox(x, y) {
 }
 
 function handleTouchMove(evt) {
-  // const cursorEl = document.getElementById('cursor');
-  // cursorEl.style.left = evt.touches[0].clientX;
-  // cursorEl.style.top = evt.touches[0].clientY;
-  // const box = getMatchingBoundingBox(evt.touches[0].clientX, evt.touches[0].clientY);
-  // if (box) {
-  //   const {r, c} = box;
-  //   const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
-  //   buttonEl.style.opacity = '0.5';
-  // }
+  const cursorEl = document.getElementById('cursor');
+  cursorEl.style.left = evt.touches[0].clientX;
+  cursorEl.style.top = evt.touches[0].clientY;
+  const box = getMatchingBoundingBox(evt.touches[0].clientX, evt.touches[0].clientY);
+  if (box) {
+    const {r, c} = box;
+    const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
+    buttonEl.style.opacity = '0.5';
+  }
 }
 
 setTimeout(() => getBoundingBoxes(), 50);
