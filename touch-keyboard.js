@@ -54,6 +54,7 @@ function createTouchKeyboard() {
                 column: ${c},
               })
             "
+            ontouchmove="handleTouchMove(event)"
           >
           </button>
         </td>
@@ -201,4 +202,10 @@ function handleTouchKeyboardEvent(eventType, key) {
       key,
     };
   }
+}
+
+function handleTouchMove(evt) {
+  const cursorEl = document.getElementById('cursor');
+  cursorEl.style.left = evt.touches[0].clientX;
+  cursorEl.style.top = evt.touches[0].clientY;
 }

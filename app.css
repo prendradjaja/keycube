@@ -137,3 +137,12 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
   font-family: sans-serif;
   margin-left: 2px;
 }
+
+#cursor {
+  width: 5px;
+  height: 5px;
+  background: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
