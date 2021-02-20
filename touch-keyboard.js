@@ -74,13 +74,15 @@ function createTouchKeyboard() {
         <td>
           <button
             id="touch-keyboard-button-${r}-${c}"
+            ontouchstart="handleTouchStart(event)"
             ontouchend="
-              handleTouchKeyboardEvent('press', {
+              handleTouchEnd(event)
+              /* handleTouchKeyboardEvent('press', {
                 keyType: 'move',
                 button: this,
                 row: ${r},
                 column: ${c},
-              })
+              }) */
             "
             ontouchmove="handleTouchMove(event)"
           >
@@ -256,6 +258,8 @@ function getBoundingBoxes() {
   }
 }
 
+setTimeout(() => getBoundingBoxes(), 50);
+
 function getMatchingBoundingBox(x, y) {
   // TODO write optimized version
   for (let box of boundingBoxes) {
@@ -276,7 +280,173 @@ function handleTouchMove(evt) {
     const {r, c} = box;
     const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
     buttonEl.style.opacity = '0.5';
+
+    const lastTouch = last(touchKeyboard.touchPath);
+    if (!lastTouch || lastTouch.r !== r || lastTouch.c !== c) {
+      const newTouch = {r, c, buttonEl};
+      touchKeyboard.touchPath.push(newTouch);
+      // console.log(touchKeyboard.touchPath.length, touchKeyboard.touchPath.map(x => `${x.r},${x.c}`).join(' '));
+      if (lastTouch) {
+        handleSwipe(newTouch, lastTouch);
+      }
+    }
+
   }
 }
 
-setTimeout(() => getBoundingBoxes(), 50);
+function handleSwipe(newTouch, lastTouch) {
+  const lastSwipe = last(touchKeyboard.swipes);
+  const lastMove = last(touchKeyboard.moves);
+  if (newTouch.r + 1 === lastTouch.r && newTouch.c === lastTouch.c) {
+  } else if (newTouch.r - 1 === lastTouch.r && newTouch.c === lastTouch.c) {
+  } else if (newTouch.c + 1 === lastTouch.c && newTouch.r === lastTouch.r) {
+  } else if (newTouch.c - 1 === lastTouch.c && newTouch.r === lastTouch.r) {
+  } else {
+    showDebugMessage('DIAGONAL');
+    return;
+  }
+  const newSwipe = [newTouch.r - lastTouch.r, newTouch.c - lastTouch.c];
+
+  if (!touchKeyboard.uMoveMode) {
+    touchKeyboard.uMoveMode = isTopHalf(lastTouch) ? 'top' : 'bottom';
+    console.log("Set u move mode:", touchKeyboard.uMoveMode);
+  }
+
+  touchKeyboard.swipes.push(newSwipe);
+  let newMove;
+
+  if (equals(newSwipe, LEFT) || equals(newSwipe, RIGHT)) {
+    newMove = getUMove(newSwipe, newTouch);
+  } else if (equals(newSwipe, UP) || equals(newSwipe, DOWN)) {
+    if (!touchKeyboard.lrMoveMode) {
+      touchKeyboard.lrMoveMode = isRightHalf(lastTouch) ? 'right' : 'left';
+      console.log("Set lr move mode:", touchKeyboard.lrMoveMode);
+    }
+    newMove = getLRMove(newSwipe);
+  } else {
+    error("invalid direction " + newSwipe);
+  }
+
+  touchKeyboard.moves.push(newMove);
+  handleMove(newMove);
+  playClickSound(newMove); // Temporarily disabled because it isn't snappy on mobile -- TODO how do i fix this?
+}
+
+
+function isTopHalf({r}) {
+  return r < touchKeyboard.rowsCount / 2;
+}
+
+function isRightHalf({c}) {
+  return c >= touchKeyboard.colsCount / 2;
+}
+
+function playClickSound(newMove) {
+  // var audio = new Audio('./click.mp3');
+  // audio.play();
+
+  if (newMove.includes('U') || newMove.includes('D')) {
+    clickBuzz( 329.63, 0.020)
+  } else {
+    clickBuzz( 261.63, 0.020)
+  }
+}
+
+function getUMove(swipe, newTouch) {
+  assert(equals(swipe, LEFT) || equals(swipe, RIGHT));
+  assert(['top', 'bottom'].includes(touchKeyboard.uMoveMode));
+
+  const firstTouch = touchKeyboard.touchPath[0];
+
+  let uMoveMode;
+  if (newTouch.r === firstTouch.r) {
+    uMoveMode = touchKeyboard.uMoveMode;
+  } else {
+    uMoveMode = newTouch.r > firstTouch.r ? 'bottom' : 'top';
+  }
+
+  if (equals(swipe, LEFT)) {
+    return uMoveMode === 'top' ? "U'" : "U";
+  } else {
+    return uMoveMode === 'top' ? "U" : "U'";
+  }
+}
+
+function getLRMove(swipe) {
+  assert(equals(swipe, UP) || equals(swipe, DOWN));
+  assert(['left', 'right'].includes(touchKeyboard.lrMoveMode));
+  if (equals(swipe, UP)) {
+    return touchKeyboard.lrMoveMode === 'right' ? "R" : "L'";
+  } else {
+    return touchKeyboard.lrMoveMode === 'right' ? "R'" : "L";
+  }
+}
+
+function assert(bool, message) {
+  !bool && error(message || "Impossible state");
+}
+
+function getSwipeRotation(newSwipe, lastSwipe) {
+  let swipe = lastSwipe;
+  if (equals(swipe, newSwipe)) {
+    return 0;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 90;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 180;
+  }
+
+  swipe = rotateSwipeClockwise(swipe);
+  if (equals(swipe, newSwipe)) {
+    return 270;
+  }
+
+  error("getSwipeRotation couldn't find the answer");
+}
+
+function rotateSwipeClockwise(swipe) {
+  const [r, c] = swipe;
+  return [c, -r];
+}
+
+function error(message) {
+  window.alert(message);
+  throw new Error(message);
+}
+
+function showDebugMessage(message) {
+  const debugEl = document.getElementsByClassName('debug-info')[0];
+  debugEl.innerHTML = message;
+}
+
+function handleTouchStart(evt) {
+  touchKeyboard.touchPath = [];
+  handleTouchMove(evt);
+  touchKeyboard.swipes = [];
+  touchKeyboard.moves = [];
+  touchKeyboard.uMoveMode = undefined;
+  touchKeyboard.lrMoveMode = undefined;
+}
+
+function handleTouchEnd(evt) {
+  touchKeyboard.touchPath.forEach(item => item.buttonEl.style.opacity = '1');
+  touchKeyboard.touchPath = [];
+  touchKeyboard.swipes = [];
+  touchKeyboard.moves = [];
+}
+
+// Returns undefined if length 0
+function last(arr) {
+  return arr[arr.length - 1];
+}
+
+// Doesn't work for everything -- works for plain strings, works for arrays, but not guaranteed to work for objects
+function equals(o1, o2) {
+  return JSON.stringify(o1) === JSON.stringify(o2);
+}
