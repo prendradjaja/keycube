@@ -150,3 +150,9 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
   left: 0;
   top: 0;
 }
+
+#debug-refresh {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
