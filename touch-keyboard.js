@@ -100,6 +100,7 @@ function handleMoveKeyPress(button, r, c) {
   const { move, handler } = getBinding(r, c);
   if (move) {
     handleMove(move);
+    playClickSound(move);
   } else if (handler) {
     handler();
   }
@@ -345,10 +346,20 @@ function playClickSound(newMove) {
   // var audio = new Audio('./click.mp3');
   // audio.play();
 
-  if (newMove.includes('U') || newMove.includes('D')) {
-    clickBuzz( 329.63, 0.020)
-  } else {
-    clickBuzz( 261.63, 0.020)
+  if (newMove.includes('U')) {
+    clickBuzz(NOTES.E4, 0.020)
+  } else if (newMove.includes('L') || newMove.includes('R')) {
+    clickBuzz(NOTES.C4, 0.020)
+  } else if (newMove.includes('D')) {
+    clickBuzz(NOTES.D4, 0.020)
+  } else if (newMove.includes('F')) {
+    clickBuzz(NOTES.A3, 0.020)
+  } else if (newMove.includes('B')) {
+    clickBuzz(NOTES.D3, 0.020)
+  } else if (newMove.includes('y')) {
+    clickBuzz(NOTES.C5, 0.020)
+  } else if (newMove.includes('x')) {
+    clickBuzz(NOTES.E5, 0.020)
   }
 }
 
