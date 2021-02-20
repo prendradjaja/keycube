@@ -46,7 +46,7 @@ function createTouchKeyboard() {
         <td>
           <button
             id="touch-keyboard-button-${r}-${c}"
-            ontouchstart="
+            ontouchend="
               handleTouchKeyboardEvent('press', {
                 keyType: 'move',
                 button: this,
