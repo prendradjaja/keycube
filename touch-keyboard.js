@@ -76,7 +76,7 @@ function createTouchKeyboard() {
             id="touch-keyboard-button-${r}-${c}"
             ontouchstart="handleTouchStart(event)"
             ontouchend="
-              handleTouchEnd(event)
+              handleTouchEnd(event, this, ${r}, ${c})
               /* handleTouchKeyboardEvent('press', {
                 keyType: 'move',
                 button: this,
@@ -434,7 +434,11 @@ function handleTouchStart(evt) {
   touchKeyboard.lrMoveMode = undefined;
 }
 
-function handleTouchEnd(evt) {
+function handleTouchEnd(evt, button, row, column) {
+  if (touchKeyboard.swipes.length === 0) {
+    handleMoveKeyPress(button, row, column);
+  }
+
   touchKeyboard.touchPath.forEach(item => item.buttonEl.style.opacity = '1');
   touchKeyboard.touchPath = [];
   touchKeyboard.swipes = [];
