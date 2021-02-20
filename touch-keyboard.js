@@ -204,8 +204,51 @@ function handleTouchKeyboardEvent(eventType, key) {
   }
 }
 
+const boundingBoxes = [];
+
+function getBoundingBoxes() {
+  const keyboard = touchKeyboard.layers[0]; // Doesn't matter which layer we use
+  for (let [r, row] of keyboard.entries()) {
+    for (let [c, key] of row.entries()) {
+      const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
+      const rect = buttonEl.getBoundingClientRect();
+      boundingBoxes.push({
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y,
+        r,
+        c,
+      });
+    }
+  }
+}
+
+function getMatchingBoundingBox(x, y) {
+  // TODO write optimized version
+  for (let box of boundingBoxes) {
+    const {left, right, top, bottom} = box;
+    if (x >= left && x <= right && y >= top && y <= bottom) {
+      return box;
+    }
+  }
+  return undefined;
+}
+
 function handleTouchMove(evt) {
   const cursorEl = document.getElementById('cursor');
   cursorEl.style.left = evt.touches[0].clientX;
   cursorEl.style.top = evt.touches[0].clientY;
+  const box = getMatchingBoundingBox(evt.touches[0].clientX, evt.touches[0].clientY);
+  if (box) {
+    const {r, c} = box;
+    const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
+    buttonEl.style.opacity = '0.5';
+  }
 }
+
+setTimeout(() => getBoundingBoxes(), 50);
