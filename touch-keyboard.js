@@ -273,6 +273,7 @@ function getMatchingBoundingBox(x, y) {
 }
 
 function handleTouchMove(evt) {
+  showDebugMessage('move');
   const cursorEl = document.getElementById('cursor');
   cursorEl.style.left = evt.touches[0].clientX;
   cursorEl.style.top = evt.touches[0].clientY;
@@ -435,10 +436,11 @@ function error(message) {
 
 function showDebugMessage(message) {
   const debugEl = document.getElementsByClassName('debug-info')[0];
-  debugEl.innerHTML = message;
+  debugEl.innerHTML += '<br>' + message;
 }
 
 function handleTouchStart(evt) {
+  showDebugMessage('( start');
   touchKeyboard.touchPath = [];
   handleTouchMove(evt);
   touchKeyboard.swipes = [];
@@ -448,6 +450,7 @@ function handleTouchStart(evt) {
 }
 
 function handleTouchEnd(evt, button, row, column) {
+  showDebugMessage(') end');
   if (touchKeyboard.swipes.length === 0) {
     handleMoveKeyPress(button, row, column);
   }
