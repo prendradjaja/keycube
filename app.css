@@ -154,10 +154,16 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
   top: 0;
 }
 
-#debug-refresh {
+#debug-buttons {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+#debug-buttons button  {
+  width: 100%;
+  display: block;
   font-size: 24px;
   padding: 10px;
+  margin: 0;
 }
