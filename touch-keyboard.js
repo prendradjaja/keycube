@@ -273,26 +273,6 @@ function getMatchingBoundingBox(x, y) {
 }
 
 function handleTouchMove(evt) {
-  const cursorEl = document.getElementById('cursor');
-  cursorEl.style.left = evt.touches[0].clientX;
-  cursorEl.style.top = evt.touches[0].clientY;
-  const box = getMatchingBoundingBox(evt.touches[0].clientX, evt.touches[0].clientY);
-  if (box) {
-    const {r, c} = box;
-    const buttonEl = document.getElementById(`touch-keyboard-button-${r}-${c}`);
-    buttonEl.style.opacity = '0.5';
-
-    const lastTouch = last(touchKeyboard.touchPath);
-    if (!lastTouch || lastTouch.r !== r || lastTouch.c !== c) {
-      const newTouch = {r, c, buttonEl};
-      touchKeyboard.touchPath.push(newTouch);
-      // console.log(touchKeyboard.touchPath.length, touchKeyboard.touchPath.map(x => `${x.r},${x.c}`).join(' '));
-      if (lastTouch) {
-        handleSwipe(newTouch, lastTouch);
-      }
-    }
-
-  }
 }
 
 function handleSwipe(newTouch, lastTouch) {
@@ -442,23 +422,9 @@ function showDebugMessage(message) {
 
 function handleTouchStart(evt) {
   playClickSound('?'); // hack! '?' is not a move
-  touchKeyboard.touchPath = [];
-  handleTouchMove(evt);
-  touchKeyboard.swipes = [];
-  touchKeyboard.moves = [];
-  touchKeyboard.uMoveMode = undefined;
-  touchKeyboard.lrMoveMode = undefined;
 }
 
 function handleTouchEnd(evt, button, row, column) {
-  if (touchKeyboard.swipes.length === 0) {
-    handleMoveKeyPress(button, row, column);
-  }
-
-  touchKeyboard.touchPath.forEach(item => item.buttonEl.style.opacity = '1');
-  touchKeyboard.touchPath = [];
-  touchKeyboard.swipes = [];
-  touchKeyboard.moves = [];
 }
 
 // Returns undefined if length 0
