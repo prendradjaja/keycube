@@ -100,7 +100,7 @@ function handleMoveKeyPress(button, r, c) {
   const { move, handler } = getBinding(r, c);
   if (move) {
     handleMove(move);
-    playClickSound(move);
+    // playClickSound(move);
   } else if (handler) {
     handler();
   }
@@ -362,6 +362,8 @@ function playClickSound(newMove) {
     clickBuzz(NOTES.E5, 0.020)
   } else if (newMove.includes('M')) {
     clickBuzz(NOTES.F4, 0.020)
+  } else if (newMove.includes('?')) {
+    clickBuzz(NOTES.G2, 0.020)
   }
 }
 
@@ -439,6 +441,7 @@ function showDebugMessage(message) {
 }
 
 function handleTouchStart(evt) {
+  playClickSound('?'); // hack! '?' is not a move
   touchKeyboard.touchPath = [];
   handleTouchMove(evt);
   touchKeyboard.swipes = [];
