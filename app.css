@@ -145,6 +145,7 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 }
 
 #cursor {
+  display: none; /* Warning: I disabled this because it's CLICKABLE. It's useful for debugging, sure, but if you re-enable it beware of the "bugs" it itself creates!! */
   width: 5px;
   height: 5px;
   background: red;
