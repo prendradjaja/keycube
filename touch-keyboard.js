@@ -360,6 +360,8 @@ function playClickSound(newMove) {
     clickBuzz(NOTES.C5, 0.020)
   } else if (newMove.includes('x')) {
     clickBuzz(NOTES.E5, 0.020)
+  } else if (newMove.includes('M')) {
+    clickBuzz(NOTES.F5, 0.020)
   }
 }
 
