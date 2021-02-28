@@ -10,6 +10,8 @@ const player = new TwistyPlayer({
   controlPanel: "none"
 });
 
+player.timeline.tempoScale = 15;
+
 document.querySelector(".square-content").textContent = "";
 document.querySelector(".square-content").appendChild(player);
 
