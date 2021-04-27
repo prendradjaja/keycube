@@ -45,9 +45,9 @@ document.addEventListener('keydown', event => {
 });
 
 function scramble() {
-  cube.init(Cube.random());
-  // cube.init(new Cube());
-  // cube.move('R');
+  // cube.init(Cube.random());
+  cube.init(new Cube());
+  cube.move(cubeSolver.scramble('pll'));
 
   draw(cube);
   globalState.state = INSPECTION;
