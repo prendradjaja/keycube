@@ -3,7 +3,7 @@ const stickerSize = 100;
 function draw(cube) {
   document.querySelectorAll('.cube')
     .forEach(cubeEl => {
-      setAngleClass(cubeEl);
+      // setAngleClass(cubeEl);
       ['f', 'r', 'u', 'l'].forEach(face =>
         cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
           let result = '';
