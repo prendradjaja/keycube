@@ -1,41 +1,31 @@
-const globalState = { // TODO rename to globals
-  angle: 'right',
-  startTime: undefined,
-  alreadySolved: true,
-};
-const cube = new Puzzle(); // TODO move to globalState
-draw(cube);
-
-document.addEventListener('keydown', event => {
-  const move = getMove(event);
-  if (event.code === 'Space') {
-    if (!globalState.alreadySolved) {
-      event.preventDefault();
-      globalState.angle = otherAngle(globalState.angle);
-      draw(cube);
-      return;
-    } else {
-      scramble();
-      return;
-    }
-  } else if (!move) {
-    return;
-  }
-
-  cube.move(move);
-  draw(cube);
-  if (false /* TODO implement isSolved */ && cube.isSolved() && !globalState.alreadySolved) {
-    const solveTime = (new Date().valueOf() - globalState.startTime) / 1000;
-    console.log('Solved in: ' + solveTime);
-    document.querySelector('button#scramble').disabled = false;
-    globalState.alreadySolved = true;
-  }
-});
-
-function scramble() {
-  // cube.init(Cube.random());
-  // draw(cube);
-  // document.querySelector('button#scramble').disabled = true;
-  // globalState.startTime = new Date().valueOf();
-  // globalState.alreadySolved = false;
-}
+Object.values(cases).forEach(alg => {
+  const newElement = document.createElement('div'); // TODO can I use a fragment?
+  newElement.style.display = 'inline-block';
+  newElement.innerHTML = `
+    <svg
+      class="cube"
+      width="500"
+      height="500"
+      viewBox="0 0 600 500"
+    >
+      <g class="cube-wrapper">
+        <g class="f-face">
+        </g>
+        <g class="r-face">
+        </g>
+        <g class="u-face">
+        </g>
+        <g class="l-face">
+        </g>
+      </g>
+    </svg>
+  `;
+  document.querySelector('#cubes-container').appendChild(newElement)
+  const cubeEl = newElement.querySelector('.cube');
+  const cube = new Puzzle();
+  cube.move(Puzzle.inverse(alg));
+  const rotate = cube.getStandardRotation_();
+  cube.move(rotate);
+  draw(cube, cubeEl);
+  cubeEl.onclick = () => window.alert(Puzzle.inverse(rotate) + ' ' + alg);
+})
