@@ -36,14 +36,41 @@ function getColor(cube, faceName, r, c) {
 }
 
 function stickerToColor(sticker) {
-  return {
+  const colors = {
+      "Mango":"#ffbe0b","Orange Pantone":"#fb5607","Winter Sky":"#ff006e","Blue Violet":"#8338ec","Azure":"#3a86ff",
+      "Amethyst":"#9b5de5","Magenta Crayola":"#f15bb5","Minion Yellow":"#fee440","Capri":"#00bbf9","Sea Green Crayola":"#00f5d4",
+      "Blue Violet Color Wheel":"#540d6e","Paradise Pink":"#ee4266","Sunglow":"#ffd23f","Caribbean Green":"#3bceac","GO Green":"#0ead69" // https://coolors.co/540d6e-ee4266-ffd23f-3bceac-0ead69
+  };
+  const colorArray = 'eac435,345995,e40066,03cea4,fb4d3d'.split(',').map(x => '#' + x);
+
+  const scheme1 = {
     U: 'white',
-    F: 'rgb(0, 200, 0)',
-    R: 'rgb(200, 0, 0)',
-    B: 'rgb(0, 0, 200)',
-    L: 'rgb(200, 100, 0)',
-    D: 'rgb(200, 200, 0)',
-  }[sticker];
+    D: colorArray[0],
+    F: colorArray[1],
+    B: colorArray[3],
+    L: colorArray[2],
+    R: colorArray[4],
+  };
+
+  const scheme2 = {
+    U: 'white',
+    D: colors['Minion Yellow'],
+    F: colors['Amethyst'],
+    B: colors['Magenta Crayola'],
+    L: colors['Capri'],
+    R: colors['Sea Green Crayola'],
+  };
+
+  const scheme3 = {
+    U: 'white',
+    D: colors.Mango,
+    F: colors['Blue Violet'],
+    B: colors['Azure'],
+    L: colors['Orange Pantone'],
+    R: colors['Winter Sky'],
+  };
+
+  return scheme1[sticker];
 }
 
 function otherAngle(angle) {
