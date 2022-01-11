@@ -75,3 +75,11 @@ function changeAngle() {
   globalState.angle = otherAngle(globalState.angle);
   draw(cube);
 }
+
+function activate3d() {
+  scriptElem = document.createElement("script");
+  // scriptElem.src = "https://garron.net/temp/stoic-dijkstra-cf99f4/twisty.js";
+  scriptElem.src = "./lucas3d.js";
+  scriptElem.type = "module";
+  document.body.appendChild(scriptElem);
+}

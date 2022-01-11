@@ -1,7 +1,11 @@
 body {
   background: #2f3338;
   text-align: center;
-  margin-top: 0;
+  margin: 0;
+
+  /* Disables pull-to-refresh but allows overscroll glow effects.
+   * https://developers.google.com/web/updates/2017/11/overscroll-behavior */
+  overscroll-behavior-y: contain;
 }
 
 body > * {
@@ -30,6 +34,9 @@ body > * {
 
 
 #text-display {
+  position: absolute;
+  top: 0;
+  left: 0;
   color: white;
   font-family: sans-serif;
   margin-bottom: 16px;
@@ -37,20 +44,21 @@ body > * {
 }
 
 .touch-keyboard {
+  border-collapse: collapse;
   height: 100%;
   width: 100%;
 }
 
 .touch-keyboard td {
-  height: 25%;
-  width: 25%;
+  height: 16%;
+  width: 16%;
   text-align: center;
 }
 
 .touch-keyboard button,
 .modifiers button {
   font-size: 24px;
-  border: 0;
+  border: 1px solid black;
   background: #c0c0c0;
   height: 100%;
   width: 100%;
@@ -129,9 +137,33 @@ body.layer-2-double-tapped .modifiers button.layer-2 {
 
 .debug-info {
   position: absolute;
-  top: 0;
+  top: 30px;
   left: 0;
-  color: gray;
+  color: red;
   font-family: sans-serif;
   margin-left: 2px;
+}
+
+#cursor {
+  display: none; /* Warning: I disabled this because it's CLICKABLE. It's useful for debugging, sure, but if you re-enable it beware of the "bugs" it itself creates!! */
+  width: 5px;
+  height: 5px;
+  background: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#debug-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#debug-buttons button  {
+  width: 100%;
+  display: block;
+  font-size: 24px;
+  padding: 10px;
+  margin: 0;
 }
