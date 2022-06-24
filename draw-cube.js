@@ -7,6 +7,7 @@ function draw(cube) {
       ['f', 'r', 'u', 'l'].forEach(face =>
         cubeEl.querySelector(`.${face}-face`).innerHTML = (() => {
           let result = '';
+          const center = getSticker(cube, face, 1, 1);
           for (let r = 0; r < 3; r++) {
             for (let c = 0; c < 3; c++) {
               result += `
@@ -15,7 +16,7 @@ function draw(cube) {
                   y="${r * stickerSize}"
                   height="100"
                   width="100"
-                  fill="${getColor(cube, face, r, c)}"
+                  fill="${getColor(cube, face, r, c, center)}"
                   stroke="black"
                   stroke-width="2"
                 />
@@ -30,9 +31,9 @@ function draw(cube) {
     });
 }
 
-function getColor(cube, faceName, r, c) {
+function getColor(cube, faceName, r, c, center) {
   const sticker = getSticker(cube, faceName, r, c);
-  return stickerToColor(sticker);
+  return center === sticker ? 'white' : 'rgb(25, 25, 25)';
 }
 
 function stickerToColor(sticker) {
